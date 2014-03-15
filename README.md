@@ -1,8 +1,10 @@
 blockscore-php
 ==============
-
 PHP class for interacting with BlockScore's API (https://manage.blockscore.com/docs/index)
 
+Requires
+==============
+PHP 5+ w/ fopen wrapper and SSL extensions enabled
 
 Usage
 ==============
