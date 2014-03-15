@@ -10,7 +10,7 @@ PHP 5.2+ w/ fopen wrapper and SSL extensions enabled
 
 ### Initializing BlockScore
 
-```
+```php
 require_once('blockscore.class.php');
 $blockscore = new blockscore(YOUR_API_KEY);
 ```
@@ -19,13 +19,13 @@ $blockscore = new blockscore(YOUR_API_KEY);
 
 ### Create a new US verification
 
-```
+```php
 $VerifyUSResult = $blockscore->VerifyUS($name, $dob, $lastfour, $address);
 ```
 
 ### Create a new international verification
 
-```
+```php
 $VerifyIntlResult = $blockscore->VerifyIntl($name, $dob, $passport, $address);
 ```
 
@@ -34,13 +34,13 @@ $VerifyIntlResult = $blockscore->VerifyIntl($name, $dob, $passport, $address);
 
 ### Create a new question set
 
-```
+```php
 $QuestionSet = $blockscore->QuestionSet();
 ```
 
 ### Score a question set
 
-```
+```php
 $QuestionResults = $blockscore->CheckQuestionAnswers(array($answers));
 ```
 
@@ -64,4 +64,4 @@ Many thanks to FusionCash, Inc's Tyler Derheim for creating the initial PHP libr
 
 ## Copyright
 
-Copyright (c) 2014 BlockScore. See LICENSE.txt for further details.
+Copyright (c) 2014 BlockScore. See `LICENSE.txt` for further details.
