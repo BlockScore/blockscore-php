@@ -4,7 +4,7 @@ PHP class for interacting with BlockScore's API (https://manage.blockscore.com/d
 
 Requires
 ==============
-PHP 5+ w/ fopen wrapper and SSL extensions enabled
+PHP 5.2+ w/ fopen wrapper and SSL extensions enabled
 
 Usage
 ==============
