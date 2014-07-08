@@ -19,7 +19,7 @@ $address['postal_code'] = '8001';
 $address['country_code'] = 'CH';
 
 try {
-    $VerifyIntlResult = $blockscore->VerifyIntl($name, $dob, $passport, $address);
+    $VerifyIntlResult = $blockscore->Blockscore_Verification_Intl($name, $dob, $passport, $address);
 } catch (Exception $e) {
     die( 'Caught exception: ' .  $e->getMessage() . "\n" );
 }
@@ -43,7 +43,7 @@ $address['state'] = 'NY';
 $address['postal_code'] = '10011';
 
 try {
-    $VerifyUSResult = $blockscore->VerifyUS($name, $dob, $lastfour, $address);
+    $VerifyUSResult = $blockscore->Blockscore_Verification_US($name, $dob, $lastfour, $address);
 } catch (Exception $e) {
     die( 'Caught exception: ' .  $e->getMessage() . "\n" );
 }
