@@ -17,16 +17,11 @@ $blockscore = new blockscore(YOUR_API_KEY);
 
 ## Verifications
 
-### Create a new US verification
+### Create a new verification
 
 ```php
-$VerifyUSResult = $blockscore->VerifyUS($name, $dob, $lastfour, $address);
-```
-
-### Create a new international verification
-
-```php
-$VerifyIntlResult = $blockscore->VerifyIntl($name, $dob, $passport, $address);
+$VerifyResult = $blockscore->Blockscore_Verification($name, $dob, $documentNum, $documentType, 
+  $address, $telephone, $ip, $note);
 ```
 
 
