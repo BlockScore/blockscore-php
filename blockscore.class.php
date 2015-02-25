@@ -162,6 +162,119 @@ public function CheckQuestionAnswers($answers, $verificationid = "", $questionse
 }
 
 /**
+ * Create a candidate for use in watchlist verification.
+ * @param Array $name All three names of candidate e.g. array('first'=>'Joe', 'middle'=>'', 'last'=>'Smith') (If candidate is a company, put full company name in "first" index)
+ * @param String $dob Date of birth in YYYY-MM-DD format
+ * @param String $ssn Candidate's social security number (whole or last 4 digits)
+ * @param String $passport Candidate's passport number (only used for non-US candidates)
+ * @param Array $address Full address of candidate e.g. array('street1'=>'20 Main', 'street2'=>'Ste 4', 'city'=>'Springfield', 'state'=>'IL', 'postal_code'=>'99999', 'country_code'=>'US')
+ * @param String $note Note to include with verification request, stored on BlockScore's end (optional)
+ * @throws Exception if request fails (see private function request() for details)
+ * @return Array
+ */
+public function CreateCandidate($name, $dob="", $ssn="", $passport="", $address=array(), $note="") {
+	$postVars = array(
+		"name_first"           => empty($name['first']) ? "" : $name['first'],
+		"name_middle"          => empty($name['middle']) ? "" : $name['middle'],
+		"name_last"            => empty($name['last']) ? "" : $name['last'],
+		"date_of_birth"        => $dob,
+		"address_street1"      => empty($address['street1']) ? "" : $address['street1'],
+		"address_street2"      => empty($address['street2']) ? "" : $address['street2'],
+		"address_city"         => empty($address['city']) ? "" : $address['city'],
+		"address_subdivision"  => empty($address['state']) ? "" : $address['state'],  
+		"address_postal_code"  => empty($address['postal_code']) ? "" : $address['postal_code'],
+		"address_country_code" => empty($address['country_code']) ? "" : $address['country_code'],
+		"note"                 => $note);
+	return $this->request('POST', 'candidates', http_build_query($postVars));
+}
+
+/**
+ * Edit an existing candidate for use in watchlist verification. Only items
+ * supplied with non-empty values will be updated.
+ * @param String $id The candidate ID
+ * @param Array $name All three names of candidate e.g. array('first'=>'Joe', 'middle'=>'', 'last'=>'Smith') (If candidate is a company, put full company name in "first" index)
+ * @param String $dob Date of birth in YYYY-MM-DD format
+ * @param String $ssn Candidate's social security number (whole or last 4 digits)
+ * @param String $passport Candidate's passport number (only used for non-US candidates)
+ * @param Array $address Full address of candidate e.g. array('street1'=>'20 Main', 'street2'=>'Ste 4', 'city'=>'Springfield', 'state'=>'IL', 'postal_code'=>'99999', 'country_code'=>'US')
+ * @param String $note Note to include with verification request, stored on BlockScore's end (optional)
+ * @throws Exception if request fails (see private function request() for details)
+ * @return Array
+ */
+public function EditCandidate($id, $name=array(), $dob="", $ssn="", $passport="", $address=array(), $note="") {
+	$postVars = array(
+		"name_first"           => empty($name['first']) ? "" : $name['first'],
+		"name_middle"          => empty($name['middle']) ? "" : $name['middle'],
+		"name_last"            => empty($name['last']) ? "" : $name['last'],
+		"date_of_birth"        => $dob,
+		"address_street1"      => empty($address['street1']) ? "" : $address['street1'],
+		"address_street2"      => empty($address['street2']) ? "" : $address['street2'],
+		"address_city"         => empty($address['city']) ? "" : $address['city'],
+		"address_subdivision"  => empty($address['state']) ? "" : $address['state'],  
+		"address_postal_code"  => empty($address['postal_code']) ? "" : $address['postal_code'],
+		"address_country_code" => empty($address['country_code']) ? "" : $address['country_code'],
+		"note"                 => $note);
+	// Remove any empty items
+	foreach ($postVars as $key => $var) {
+		if (empty($var)) {
+			unset($postVars[$key]);
+		}
+	}
+	return $this->request('PATCH', 'candidates/'.$id, http_build_query($postVars));
+}
+
+/**
+ * Delete an existing candidate.
+ * @param String $id The candidate ID
+ * @return Array
+ */
+public function DeleteCandidate($id) {
+	return $this->request('DELETE', 'candidates/'.$id);
+}
+
+/**
+ * Get an existing candidate.
+ * @param String $id The candidate ID
+ * @return Array
+ */
+public function GetCandidate($id) {
+	return $this->request('GET', 'candidates/'.$id);
+}
+
+/**
+ * Get a list of all candidates.
+ * @return Array
+ */
+public function ListCandidate($id) {
+	return $this->request('GET', 'candidates');
+}
+
+/**
+ * Get an existing candidate's revision history.
+ * @param String $id The candidate ID
+ * @return Array
+ */
+public function GetCandidateHistory($id) {
+	return $this->request('GET', "candidates/{$id}/history");
+}
+
+/**
+ * Search watchlists for matches against the candidate. Set which watchlists
+ * will be searched in your BlockScore account settings.
+ * @param String $candidateid The candidate ID
+ * @param String $matchtype The type of match ('person' or 'company')
+ * @return Array
+ */
+public function SearchWatchlists($candidateid, $matchtype='person') {
+	$matchtype = ($matchtype == 'company') ? 'company' : 'person';
+	$postVars = array(
+		'candidate_id' => $candidateid,
+		'match_type'   => $matchtype,
+		);
+	return $this->request('POST', 'watchlists', http_build_query($postVars));
+}
+
+/**
 * (Private) Build HTTP request
 * @param String $method E.g. GET or POST
 * @param String $verb Path to API method, e.g. 'verifications' or 'questions/score'
@@ -187,7 +300,7 @@ protected function request($method, $verb, $postData = "") {
 	if($result === false)
 		throw new Exception('blockscore: Unable to retrieve ' . blockscore::base_url . $verb . ': ' . $http_response_header);
 	$jsonResult = json_decode($result, true);
-	if(json_last_error() == JSON_ERROR_NONE && (!empty($jsonResult['id']) || !empty($jsonResult['verification_id']) || !empty($jsonResult['question_set_id'])))
+	if(json_last_error() == JSON_ERROR_NONE && (!empty($jsonResult['id']) || !empty($jsonResult['verification_id']) || !empty($jsonResult['question_set_id']) || !empty($jsonResult['searched_lists'])))
 	{
 		if(!empty($jsonResult['id']) && $verb == 'people')
 			$this->verification_id = $jsonResult['id'];
@@ -237,4 +350,3 @@ public function Blockscore_Verification_Intl($name, $dob, $passport, $address, $
 }
 
 } //class blockscore
-?>
