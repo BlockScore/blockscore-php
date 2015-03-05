@@ -5,10 +5,10 @@ namespace BlockScore;
 /**
  * Base class for BlockScore test cases.
  */
-class TestCase extends PHPUnit_Framework_TestCase
+class TestCase extends \PHPUnit_Framework_TestCase
 {
     const API_KEY = 'sk_test_1234567890';
-    const TEST_PERSON = array(
+    private $test_person = array(
         'name_first' => 'Jane',
         'name_last' => 'Doe',
         'birth_day' => 1,
@@ -21,8 +21,8 @@ class TestCase extends PHPUnit_Framework_TestCase
         'address_subdivision' => 'OH',
         'address_postal_code' => '44444',
         'address_country_code' => 'US'
-    )
-    const TEST_COMPANY = array(
+    );
+    private $test_company = array(
         'name' => 'Test Company',
         'tax_id' => '0000',
         'incorporation_day' => 1,
@@ -33,7 +33,7 @@ class TestCase extends PHPUnit_Framework_TestCase
         'address_subdivision' => 'OH',
         'address_postal_code' => '44444',
         'address_country_code' => 'US'
-    )
+    );
 
     protected static function setTestApiKey()
     {
@@ -43,18 +43,18 @@ class TestCase extends PHPUnit_Framework_TestCase
     protected static function createTestPerson()
     {
         self::setTestApiKey();
-        return Person::create(self::TEST_PERSON);
+        return Person::create($test_person);
     }
 
     protected static function createTestCandidate()
     {
         self::setTestApiKey();
-        return Candidate::create(self::TEST_PERSON);
+        return Candidate::create($test_person);
     }
 
     protected static function createTestCompany()
     {
         self::setTestApiKey();
-        return Company::create(self::TEST_COMPANY);
+        return Company::create($test_company);
     }
 }

@@ -4,8 +4,9 @@ namespace BlockScore;
 
 class PersonTest extends TestCase
 {
-    public function testUrls()
+    // Test URL generator
+    public function testUrl()
     {
-        // Make sure generated URLs are correct
+        $this->assertSame(Person::classUrl(), '/people');
     }
 }
