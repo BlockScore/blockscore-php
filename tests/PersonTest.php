@@ -9,4 +9,10 @@ class PersonTest extends TestCase
     {
         $this->assertSame(Person::classUrl(), '/people');
     }
+
+    public function testUrlBuilding()
+    {
+        $person = self::createTestPerson();
+        $this->assertSame($person, 'https://api.blockscore.com/people');
+    }
 }

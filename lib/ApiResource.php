@@ -20,27 +20,39 @@ class ApiResource
         return "/{$resource}";
     }
 
+    public static function _makeRequest($method, $url, $params, $options)
+    {
+        $request = new ApiRequestor(BlockScore::$apiKey, BlockScore::$apiEndpoint);
+        $response = $request->execute($method, $url, $params, $options);
+        return $response;
+    }
+
     protected static function _retrieve($id, $options = null)
     {
         // parse options
-        $url = static::classUrl();
         // validate param
-        // convert into object
+        $url = static::classUrl();
+        $params = array('id' => $id);
+        $response = static::_makeRequest('get', $url, $params, $options);
+        // return Util\ConvertResponseToObject($response);
+        return $response;
     }
 
     protected static function _all($params = null, $options = null)
     {
         // validate params
         $url = static::classUrl();
-        // make request
-        // convert into object
+        $response = static::_makeRequest('get', $url, $params, $options);
+        // return Util\ConvertResponseToObject($response);
+        return $response;
     }
 
     protected static function _create($params = null, $options = null)
     {
         // validate params
         $url = static::classUrl();
-        // make request
-        // convert into object
+        $response = static::_makeRequest('get', $url, $params, $options);
+        // return Util\ConvertResponseToObject($response);
+        return $response;
     }
 }

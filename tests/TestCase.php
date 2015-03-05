@@ -8,7 +8,7 @@ namespace BlockScore;
 class TestCase extends \PHPUnit_Framework_TestCase
 {
     const API_KEY = 'sk_test_1234567890';
-    private $test_person = array(
+    private static $test_person = array(
         'name_first' => 'Jane',
         'name_last' => 'Doe',
         'birth_day' => 1,
@@ -22,7 +22,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
         'address_postal_code' => '44444',
         'address_country_code' => 'US'
     );
-    private $test_company = array(
+    private static $test_company = array(
         'name' => 'Test Company',
         'tax_id' => '0000',
         'incorporation_day' => 1,
@@ -43,18 +43,18 @@ class TestCase extends \PHPUnit_Framework_TestCase
     protected static function createTestPerson()
     {
         self::setTestApiKey();
-        return Person::create($test_person);
+        return Person::create(self::$test_person);
     }
 
     protected static function createTestCandidate()
     {
         self::setTestApiKey();
-        return Candidate::create($test_person);
+        return Candidate::create(self::$test_person);
     }
 
     protected static function createTestCompany()
     {
         self::setTestApiKey();
-        return Company::create($test_company);
+        return Company::create(self::$test_company);
     }
 }
