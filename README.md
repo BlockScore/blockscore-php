@@ -2,50 +2,9 @@
 
 This is the official library for PHP clients of the BlockScore API. [Click here to read the full documentation](https://manage.blockscore.com/docs).
 
-## Dependencies
+## To-Do
 
-PHP 5.2+ w/ fopen wrapper and SSL extensions enabled
-
-## Getting Started
-
-### Initializing BlockScore
-
-```php
-require_once('blockscore.class.php');
-$blockscore = new blockscore(YOUR_API_KEY);
-```
-
-## Verifications
-
-### Create a new verification
-
-```php
-$VerifyResult = $blockscore->Blockscore_Verification($name, $dob, $documentNum, $documentType, 
-  $address, $telephone, $ip, $note);
-```
-
-
-## Question Sets
-
-### Create a new question set
-
-```php
-$QuestionSet = $blockscore->QuestionSet();
-```
-
-### Score a question set
-
-```php
-$QuestionResults = $blockscore->CheckQuestionAnswers(array($answers));
-```
-
-## Examples
-
-Please see `examples.php` for more information.
-
-## Credit
-
-Many thanks to FusionCash, Inc's Tyler Derheim for creating the initial PHP library!
+Everything
 
 ## Contributing to BlockScore
  
@@ -59,4 +18,4 @@ Many thanks to FusionCash, Inc's Tyler Derheim for creating the initial PHP libr
 
 ## Copyright
 
-Copyright (c) 2014 BlockScore. See `LICENSE.txt` for further details.
+Copyright (c) 2015 BlockScore. See `LICENSE.txt` for further details.
