@@ -8,6 +8,17 @@ namespace BlockScore;
 class TestCase extends \PHPUnit_Framework_TestCase
 {
   const API_KEY = null;
+  private static $first_names = array(
+    'Jane',
+    'John',
+    'Alain',
+    'John',
+    'Chris',
+    'Beau',
+    'Andrew',
+    'Connor',
+    'Daniel',
+  );
   protected static $test_person = array(
     'name_first' => 'Jane',
     'name_last' => 'Doe',
@@ -20,9 +31,9 @@ class TestCase extends \PHPUnit_Framework_TestCase
     'address_city' => 'Newton Falls',
     'address_subdivision' => 'OH',
     'address_postal_code' => '44444',
-    'address_country_code' => 'US'
+    'address_country_code' => 'US',
   );
-  protected static $test_company = array(
+  protected $test_company = array(
     'name' => 'Test Company',
     'tax_id' => '0000',
     'incorporation_day' => 1,
@@ -32,7 +43,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
     'address_city' => 'Newton Falls',
     'address_subdivision' => 'OH',
     'address_postal_code' => '44444',
-    'address_country_code' => 'US'
+    'address_country_code' => 'US',
   );
 
   protected static function setTestApiKey()
@@ -48,18 +59,26 @@ class TestCase extends \PHPUnit_Framework_TestCase
   protected static function createTestPerson()
   {
     self::setTestApiKey();
+    self::randomizeFirstName();
     return Person::create(self::$test_person);
   }
 
   protected static function createTestCandidate()
   {
     self::setTestApiKey();
-    return Candidate::create(self::$test_person);
+    self::randomizeFirstName();
+    return Candidate::create($this->test_person);
   }
 
   protected static function createTestCompany()
   {
     self::setTestApiKey();
-    return Company::create(self::$test_company);
+    return Company::create($this->test_company);
+  }
+
+  protected static function randomizeFirstName()
+  {
+    $new_first_name = self::$first_names[array_rand(self::$first_names)];
+    self::$test_person['name_first'] = $new_first_name;
   }
 }

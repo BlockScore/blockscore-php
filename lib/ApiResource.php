@@ -30,9 +30,9 @@ class ApiResource
   protected static function _retrieve($id, $options = null)
   {
     $url = static::classUrl();
-    $params = array('id' => $id);
-    $response = static::_makeRequest('get', $url, $params, $options);
-    return json_decode($response)->data[0];
+    $url = "{$url}/{$id}";
+    $response = static::_makeRequest('get', $url, null, $options);
+    return json_decode($response);
   }
 
   protected static function _all($params = null, $options = null)
@@ -59,9 +59,6 @@ class ApiResource
 
   protected static function _save($id, $params, $options = null)
   {
-    // $url = static::classUrl();
-    // $params = array('id' => $id);
-    // $response = static::_makeRequest('put', $url, $params, $options);
-    // return json_decode($response)->data[0];
+    
   }
 }

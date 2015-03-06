@@ -24,7 +24,9 @@ class PersonTest extends TestCase
   {
     $person = self::createTestPerson();
     $retrieved_person = Person::retrieve($person->id);
-    $this->assertEquals($retrieved_person, $person);
+    foreach (self::$test_person as $key => $value) {
+      $this->assertSame($retrieved_person->$key, $value);
+    }
   }
 
   public function testCreatePerson()
