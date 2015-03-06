@@ -57,11 +57,11 @@ class ApiResource
     return json_decode($response)->data[0];
   }
 
-  protected static function _edit($id, $options = null)
+  protected static function _save($id, $params, $options = null)
   {
-    $url = static::classUrl();
-    $params = array('id' => $id);
-    $response = static::_makeRequest('put', $url, $params, $options);
-    return json_decode($response)->data[0];
+    // $url = static::classUrl();
+    // $params = array('id' => $id);
+    // $response = static::_makeRequest('put', $url, $params, $options);
+    // return json_decode($response)->data[0];
   }
 }
