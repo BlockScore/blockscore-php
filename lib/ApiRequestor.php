@@ -60,6 +60,11 @@ class ApiRequestor
       'Accept: application/vnd.blockscore+json;version=4'
     ));
 
+    // Set user agent
+    $clientVersion = BlockScore::$clientVersion;
+    $user_agent = "blockscore-php/{$clientVersion} (https://github.com/BlockScore/blockscore-php)";
+    curl_setopt($curl, CURLOPT_USERAGENT, $user_agent);
+
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 

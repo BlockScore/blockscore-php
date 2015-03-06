@@ -13,6 +13,9 @@ class BlockScore
   // @var string|null Version of the BlockScore API.
   public static $apiVersion = null;
 
+  // @var string Version of the BlockScore PHP client library.
+  public static $clientVersion = 'x.x.x';
+
   /**
    * @return string The BlockScore API key used for requests.
    */

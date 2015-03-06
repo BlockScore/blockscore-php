@@ -19,6 +19,17 @@ class TestCase extends \PHPUnit_Framework_TestCase
     'Connor',
     'Daniel',
   );
+  private static $company_names = array(
+    'Jane BlockScore',
+    'John BlockScore',
+    'Alain BlockScore',
+    'John BlockScore',
+    'Chris BlockScore',
+    'Beau BlockScore',
+    'Andrew BlockScore',
+    'Connor BlockScore',
+    'Daniel BlockScore',
+  );
   protected static $test_person = array(
     'name_first' => 'Jane',
     'name_last' => 'Doe',
@@ -33,7 +44,19 @@ class TestCase extends \PHPUnit_Framework_TestCase
     'address_postal_code' => '44444',
     'address_country_code' => 'US',
   );
-  protected $test_company = array(
+  protected static $test_candidate = array(
+    'name_first' => 'Jane',
+    'name_last' => 'Doe',
+    'date_of_birth' => '1990-01-01',
+    'ssn' => '0000',
+    'address_street1' => '123 Something Ave',
+    'address_city' => 'Newton Falls',
+    'address_subdivision' => 'OH',
+    'address_postal_code' => '44444',
+    'address_country_code' => 'US',
+    'note' => 'A test note.',
+  );
+  protected static $test_company = array(
     'name' => 'Test Company',
     'tax_id' => '0000',
     'incorporation_day' => 1,
@@ -59,26 +82,39 @@ class TestCase extends \PHPUnit_Framework_TestCase
   protected static function createTestPerson()
   {
     self::setTestApiKey();
-    self::randomizeFirstName();
+    self::randomizeFirstNameOfPerson();
     return Person::create(self::$test_person);
   }
 
   protected static function createTestCandidate()
   {
     self::setTestApiKey();
-    self::randomizeFirstName();
-    return Candidate::create($this->test_person);
+    self::randomizeFirstNameOfCandidate();
+    return Candidate::create(self::$test_candidate);
   }
 
   protected static function createTestCompany()
   {
     self::setTestApiKey();
-    return Company::create($this->test_company);
+    self::randomizeCompanyName();
+    return Company::create(self::$test_company);
   }
 
-  protected static function randomizeFirstName()
+  protected static function randomizeFirstNameOfPerson()
   {
     $new_first_name = self::$first_names[array_rand(self::$first_names)];
     self::$test_person['name_first'] = $new_first_name;
+  }
+
+  protected static function randomizeFirstNameOfCandidate()
+  {
+    $new_first_name = self::$first_names[array_rand(self::$first_names)];
+    self::$test_candidate['name_first'] = $new_first_name;
+  }
+
+  protected static function randomizeCompanyName()
+  {
+    $new_name = self::$company_names[array_rand(self::$company_names)];
+    self::$test_company['name'] = $new_name;
   }
 }
