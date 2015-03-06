@@ -52,9 +52,9 @@ class ApiResource
   protected static function _delete($id, $options = null)
   {
     $url = static::classUrl();
-    $params = array('id' => $id);
-    $response = static::_makeRequest('delete', $url, $params, $options);
-    return json_decode($response)->data[0];
+    $url = "{$url}/{$id}";
+    $response = static::_makeRequest('delete', $url, null, $options);
+    return json_decode($response);
   }
 
   protected static function _save($id, $params, $options = null)

@@ -36,4 +36,14 @@ class CandidateTest extends TestCase
       $this->assertSame($candidate->$key, $value);
     }
   }
+
+  public function testDeleteCandidate()
+  {
+    $candidate = self::createTestCandidate();
+    $deleted_candidate = Candidate::delete($candidate->id);
+    $this->assertTrue($deleted_candidate->deleted);
+    foreach (self::$test_candidate as $key => $value) {
+      $this->assertSame($deleted_candidate->$key, $value);
+    }
+  }
 }
