@@ -48,4 +48,20 @@ class ApiResource
     $response = static::_makeRequest('post', $url, $params, $options);
     return json_decode($response);
   }
+
+  protected static function _delete($id, $options = null)
+  {
+    $url = static::classUrl();
+    $params = array('id' => $id);
+    $response = static::_makeRequest('delete', $url, $params, $options);
+    return json_decode($response)->data[0];
+  }
+
+  protected static function _edit($id, $options = null)
+  {
+    $url = static::classUrl();
+    $params = array('id' => $id);
+    $response = static::_makeRequest('put', $url, $params, $options);
+    return json_decode($response)->data[0];
+  }
 }
