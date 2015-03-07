@@ -4,12 +4,12 @@ namespace BlockScore;
 
 class PersonTest extends TestCase
 {
-  // Test URL generator
+  // // Test URL generator
   public function testUrl()
   {
     $this->assertSame(Person::classUrl(), '/people');
   }
-
+  
   public function testListAllPeople()
   {
     $person = self::createTestPerson();
@@ -19,7 +19,7 @@ class PersonTest extends TestCase
       $this->assertSame($first_person->$key, $value);
     }
   }
-
+  
   public function testRetrievePerson()
   {
     $person = self::createTestPerson();
@@ -28,7 +28,7 @@ class PersonTest extends TestCase
       $this->assertSame($retrieved_person->$key, $value);
     }
   }
-
+  
   public function testCreatePerson()
   {
     $person = self::createTestPerson();

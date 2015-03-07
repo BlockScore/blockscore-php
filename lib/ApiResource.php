@@ -2,7 +2,7 @@
 
 namespace BlockScore;
 
-class ApiResource
+class ApiResource extends Object
 {
   // An array of the resources
   private static $resources = array(
@@ -20,6 +20,23 @@ class ApiResource
     return "/{$resource}";
   }
 
+  public function instanceUrl()
+  {
+    $id = $this['id'];
+    $base = static::classUrl();
+    return "{$base}/{$id}";
+  }
+
+  public function refresh()
+  {
+    $request = new ApiRequestor(BlockScore::$apiKey, BlockScore::$apiEndpoint);
+    $url = static::classUrl();
+    $url = "{$url}/{$this['id']}";
+    $response = $request->execute('get', $url, null, null);
+    $this->refreshObject(json_decode($response));
+    return $this;
+  }
+
   public static function _makeRequest($method, $url, $params, $options)
   {
     $request = new ApiRequestor(BlockScore::$apiKey, BlockScore::$apiEndpoint);
@@ -29,10 +46,9 @@ class ApiResource
 
   protected static function _retrieve($id, $options = null)
   {
-    $url = static::classUrl();
-    $url = "{$url}/{$id}";
-    $response = static::_makeRequest('get', $url, null, $options);
-    return json_decode($response);
+    $instance = new static($id);
+    $instance->refresh();
+    return $instance;
   }
 
   protected static function _all($params = null, $options = null)
@@ -49,16 +65,22 @@ class ApiResource
     return json_decode($response);
   }
 
-  protected static function _delete($id, $options = null)
+  protected function _delete()
   {
-    $url = static::classUrl();
-    $url = "{$url}/{$id}";
-    $response = static::_makeRequest('delete', $url, null, $options);
-    return json_decode($response);
+    $url = $this->instanceUrl();
+    $response = static::_makeRequest('delete', $url, null, null);
+    $this->refreshObject(json_decode($response));
+    return $this;
   }
 
-  protected static function _save($id, $params, $options = null)
+  protected function _save()
   {
-    
+    $params = $this->getUnsavedValues();
+    if (count($params) > 0) {
+      $url = $this->instanceUrl();
+      $response = static::_makeRequest('patch', $url, $params, null);
+      $this->refreshObject(json_decode($response));
+    }
+    return $this;
   }
 }

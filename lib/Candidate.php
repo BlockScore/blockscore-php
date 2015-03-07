@@ -22,9 +22,9 @@ class Candidate extends ApiResource
    *
    * @return Candidate
    */
-  public static function save($id, $params, $options = null)
+  public function save()
   {
-    return self::_save($id, $params, $options);
+    return $this->_save();
   }
 
   /**
@@ -33,9 +33,9 @@ class Candidate extends ApiResource
    *
    * @return Candidate
    */
-  public static function delete($id, $options = null)
+  public function delete()
   {
-    return self::_delete($id, $options);
+    return $this->_delete();
   }
 
   /**

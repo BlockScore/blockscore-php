@@ -31,7 +31,7 @@ class ApiRequestor
         }
         break;
 
-      case 'put':
+      case 'patch':
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'PATCH');
         if ($params) {
           curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
