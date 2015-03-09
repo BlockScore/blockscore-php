@@ -17,9 +17,6 @@ class Candidate extends ApiResource
   }
 
   /**
-   * @param string $id The ID of the candidate to edit.
-   * @param array|string|null $options
-   *
    * @return Candidate
    */
   public function save()
@@ -28,14 +25,27 @@ class Candidate extends ApiResource
   }
 
   /**
-   * @param string $id The ID of the candidate to retrieve.
-   * @param array|string|null $options
-   *
    * @return Candidate
    */
   public function delete()
   {
     return $this->_delete();
+  }
+
+  /**
+   * @return array An array of Candidates
+   */
+  public function history()
+  {
+    return $this->_history();
+  }
+
+  /**
+   * @return array An array of Candidates
+   */
+  public function hits()
+  {
+    return $this->_hits();
   }
 
   /**

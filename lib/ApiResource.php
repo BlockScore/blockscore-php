@@ -124,4 +124,24 @@ class ApiResource extends Object
     }
     return $this;
   }
+
+  /**
+   * @return array The history of the candidate in an array of candidates.
+   */
+  protected function _history()
+  {
+    $url = $this->instanceUrl() . '/history';
+    $response = static::_makeRequest('get', $url);
+    return json_decode($response);
+  }
+
+  /**
+   * @return array The hits of the candidate in an array of candidates.
+   */
+  protected function _hits()
+  {
+    $url = $this->instanceUrl() . '/hits';
+    $response = static::_makeRequest('get', $url);
+    return json_decode($response)->data;
+  }
 }
