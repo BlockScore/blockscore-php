@@ -4,7 +4,6 @@ namespace BlockScore;
 
 class CandidateTest extends TestCase
 {
-  // Test URL generator
   public function testUrl()
   {
     $this->assertSame(Candidate::classUrl(), '/candidates');
@@ -13,13 +12,14 @@ class CandidateTest extends TestCase
   public function testListAllCandidates()
   {
     $candidate = self::createTestCandidate();
+    sleep(2);
     $candidates = Candidate::all();
     $first_candidate = $candidates[0];
     foreach (self::$test_candidate as $key => $value) {
       $this->assertSame($first_candidate->$key, $value);
     }
   }
-
+  
   public function testRetrieveCandidate()
   {
     $candidate = self::createTestCandidate();
@@ -28,7 +28,7 @@ class CandidateTest extends TestCase
       $this->assertSame($retrieved_candidate->$key, $value);
     }
   }
-
+  
   public function testCreateCandidate()
   {
     $candidate = self::createTestCandidate();
@@ -50,11 +50,23 @@ class CandidateTest extends TestCase
 
   public function testEditCandidate()
   {
+    // Test case #1 (Simple)
     $candidate = self::createTestCandidate();
     $candidate = Candidate::retrieve($candidate->id);
     $candidate->ssn = '9999';
     $new_candidate = $candidate->save();
     $this->assertNotEquals(self::$test_candidate['ssn'], $new_candidate->ssn);
     $this->assertSame($new_candidate->ssn, '9999');
+
+    // Test case #2 (Complex)
+    $candidate = self::createTestCandidate();
+    $candidate = Candidate::retrieve($candidate->id);
+    $candidate->ssn = '9999';
+    $candidate->ssn = '8888';
+    $candidate->notes = null;
+    $new_candidate = $candidate->save();
+    $this->assertNotEquals(self::$test_candidate['ssn'], $new_candidate->ssn);
+    $this->assertSame($new_candidate->ssn, '8888');
+    $this->assertSame($new_candidate->notes, null);
   }
 }

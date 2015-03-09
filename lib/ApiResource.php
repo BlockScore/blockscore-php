@@ -4,7 +4,7 @@ namespace BlockScore;
 
 class ApiResource extends Object
 {
-  // An array of the resources
+  // @var array An array mapping the API resources to their class name.
   private static $resources = array(
     'person' => 'people',
     'company' => 'companies',
@@ -13,6 +13,9 @@ class ApiResource extends Object
     'watchlist' => 'watchlists',
   );
 
+  /**
+   * @return string Returns the URL for the API resource needed.
+   */
   public static function classUrl()
   {
     $className = str_replace('BlockScore\\', '', get_called_class());
@@ -20,6 +23,9 @@ class ApiResource extends Object
     return "/{$resource}";
   }
 
+  /**
+   * @return string Returns the URL for the specific instance of the object.
+   */
   public function instanceUrl()
   {
     $id = $this['id'];
@@ -27,6 +33,9 @@ class ApiResource extends Object
     return "{$base}/{$id}";
   }
 
+  /**
+   * @return object Returns the "refreshed" object from the BlockScore API.
+   */
   public function refresh()
   {
     $request = new ApiRequestor(BlockScore::$apiKey, BlockScore::$apiEndpoint);
@@ -37,13 +46,27 @@ class ApiResource extends Object
     return $this;
   }
 
-  public static function _makeRequest($method, $url, $params, $options)
+  /**
+   * @param string $method The HTTP method to use.
+   * @param string $url The URL to use.
+   * @param array|null $params The parameters to use for the request.
+   * @param array|null $options The options to use for the response.
+   *
+   * @return string The response from the BlockScore API.
+   */
+  public static function _makeRequest($method, $url, $params = null, $options = null)
   {
     $request = new ApiRequestor(BlockScore::$apiKey, BlockScore::$apiEndpoint);
     $response = $request->execute($method, $url, $params, $options);
     return $response;
   }
 
+  /**
+   * @param string $id The ID of the object to retrieve.
+   * @param array|null $options The options to use.
+   *
+   * @return Object The refreshed instance.
+   */
   protected static function _retrieve($id, $options = null)
   {
     $instance = new static($id);
@@ -51,6 +74,12 @@ class ApiResource extends Object
     return $instance;
   }
 
+  /**
+   * @param array|null $params The parameters to use .
+   * @param array|null $options The options to use for the response.
+   *
+   * @return JSON The response from the BlockScore API in JSON format.
+   */
   protected static function _all($params = null, $options = null)
   {
     $url = static::classUrl();
@@ -58,6 +87,12 @@ class ApiResource extends Object
     return json_decode($response)->data;
   }
 
+  /**
+   * @param array|null $params The parameters to use.
+   * @param array|null $options The options to use for the response.
+   *
+   * @return JSON The response from the BlockScore API in JSON format.
+   */
   protected static function _create($params = null, $options = null)
   {
     $url = static::classUrl();
@@ -65,20 +100,26 @@ class ApiResource extends Object
     return json_decode($response);
   }
 
+  /**
+   * @return Object The refreshed instance.
+   */
   protected function _delete()
   {
     $url = $this->instanceUrl();
-    $response = static::_makeRequest('delete', $url, null, null);
+    $response = static::_makeRequest('delete', $url);
     $this->refreshObject(json_decode($response));
     return $this;
   }
 
+  /**
+   * @return Object The refreshed instance.
+   */
   protected function _save()
   {
     $params = $this->getUnsavedValues();
     if (count($params) > 0) {
       $url = $this->instanceUrl();
-      $response = static::_makeRequest('patch', $url, $params, null);
+      $response = static::_makeRequest('patch', $url, $params);
       $this->refreshObject(json_decode($response));
     }
     return $this;

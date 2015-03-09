@@ -5,12 +5,28 @@ namespace BlockScore;
 use ArrayAccess;
 use InvalidArgumentException;
 
+/**
+ *  This Object class exists to make it easier to work with objects.
+ *  Since we want to interact with objects after retrieving them (edit/delete),
+ *    we need to be able to track the original values of the attributes and
+ *    also the new values of certain attributes.
+ *  Anything extending from this class will also be able to access the original
+ *    values by using $var->$value
+ */
 class Object implements ArrayAccess
 {
 
+  // @var array Contains the values of the object.
   protected $_values;
+
+  // @var array Tracks the unsaved values of the object.
   protected $_unsavedValues;
 
+  /**
+   * @param string|null $id The BlockScore object ID
+   *
+   * Constructor for Objects.
+   */
   public function __construct($id = null)
   {
     $this->_values = array();
@@ -22,7 +38,12 @@ class Object implements ArrayAccess
     }
   }
 
-  // Standard accessors
+  /**
+   * @param string $key
+   * @param object $value
+   *
+   * Sets an object value.
+   */
   public function __set($key, $value)
   {
     $this->_values[$key] = $value;
@@ -32,17 +53,32 @@ class Object implements ArrayAccess
     }
   }
 
+  /**
+   * @param string $key
+   *
+   * @return boolean Whether the key is set.
+   */
   public function __isset($key)
   {
     return isset($this->_values[$key]);
   }
 
+  /**
+   * @param string $key
+   *
+   * Unsets an object value given a certain key.
+   */
   public function __unset($key)
   {
     unset($this->_values[$key]);
     unset($this->_unsavedValues[$key]);
   }
 
+  /**
+   * @param string $key
+   *
+   * @return object The value at the given key.
+   */
   public function __get($key)
   {
     if (array_key_exists($key, $this->_values)) {
@@ -71,6 +107,11 @@ class Object implements ArrayAccess
     return array_key_exists($key, $this->_values) ? $this->_values[$key] : null;
   }
 
+  /**
+   * @param array $values The values to "refresh" the object with
+   *
+   * "Refreshes" the object with the new values.
+   */
   public function refreshObject($values)
   {
     foreach($values as $key => $value) {
@@ -79,17 +120,19 @@ class Object implements ArrayAccess
     }
   }
 
+  /**
+   * @return array The unsaved values of the object.
+   */
   public function getUnsavedValues()
   {
     $params = array();
     foreach ($this->_unsavedValues as $key => $value) {
-      if ($value === '') {
+      if ($value == "") {
         $value = null;
       }
 
       $params[$key] = $value;
     }
-
     return $params;
   }
 }
