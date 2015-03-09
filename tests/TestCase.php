@@ -57,7 +57,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
     'note' => 'A test note.',
   );
   protected static $test_company = array(
-    'entity_name' => 'Text Company',
+    'entity_name' => 'Test Company',
     'tax_id' => '123410000',
     'incorporation_day' => 1,
     'incorporation_month' => 1,
