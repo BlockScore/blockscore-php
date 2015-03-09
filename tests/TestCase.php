@@ -57,12 +57,21 @@ class TestCase extends \PHPUnit_Framework_TestCase
     'note' => 'A test note.',
   );
   protected static $test_company = array(
-    'name' => 'Test Company',
-    'tax_id' => '0000',
+    'entity_name' => 'Text Company',
+    'tax_id' => '123410000',
     'incorporation_day' => 1,
     'incorporation_month' => 1,
     'incorporation_year' => 1990,
+    'incorporation_state' => 'DE',
+    'incorporation_country_code' => 'US',
+    'incorporation_type' => 'corporation',
+    'dbas' => 'TestCompany',
+    'registration_number' => '123123123',
+    'email' => 'test@example.com',
+    'phone_number' => '6505555555',
+    'ip_address' => '8.8.8.8',
     'address_street1' => '123 Something Ave',
+    'address_street2' => nil,
     'address_city' => 'Newton Falls',
     'address_subdivision' => 'OH',
     'address_postal_code' => '44444',
@@ -115,6 +124,6 @@ class TestCase extends \PHPUnit_Framework_TestCase
   protected static function randomizeCompanyName()
   {
     $new_name = self::$company_names[array_rand(self::$company_names)];
-    self::$test_company['name'] = $new_name;
+    self::$test_company['entity_name'] = $new_name;
   }
 }
