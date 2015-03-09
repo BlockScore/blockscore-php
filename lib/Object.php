@@ -127,12 +127,13 @@ class Object implements ArrayAccess
   {
     $params = array();
     foreach ($this->_unsavedValues as $key => $value) {
-      if ($value == "") {
-        $value = null;
+      if ($value === null) {
+        $value = '';
       }
 
       $params[$key] = $value;
     }
+    
     return $params;
   }
 }

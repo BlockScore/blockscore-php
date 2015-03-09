@@ -55,25 +55,36 @@ class CandidateTest extends TestCase
     }
   }
 
-  public function testEditCandidate()
+  public function testEditCandidateSimple()
   {
-    // Test case #1 (Simple)
     $candidate = self::createTestCandidate();
     $candidate = Candidate::retrieve($candidate->id);
     $candidate->ssn = '9999';
     $new_candidate = $candidate->save();
     $this->assertNotEquals(self::$test_candidate['ssn'], $new_candidate->ssn);
     $this->assertSame($new_candidate->ssn, '9999');
+  }
 
-    // Test case #2 (Complex)
+  public function testEditCandidateComplex()
+  {
     $candidate = self::createTestCandidate();
     $candidate = Candidate::retrieve($candidate->id);
     $candidate->ssn = '9999';
     $candidate->ssn = '8888';
-    $candidate->notes = null;
+    $candidate->note = '';
     $new_candidate = $candidate->save();
     $this->assertNotEquals(self::$test_candidate['ssn'], $new_candidate->ssn);
+    $this->assertNotEquals(self::$test_candidate['note'], $new_candidate->note);
     $this->assertSame($new_candidate->ssn, '8888');
-    $this->assertSame($new_candidate->notes, null);
+    $this->assertSame($new_candidate->note, '');
+  }
+
+  public function testEditCandidateNullConversion()
+  {
+    $candidate = self::createTestCandidate();
+    $candidate = Candidate::retrieve($candidate->id);
+    $candidate->note = null;
+    $new_candidate = $candidate->save();
+    $this->assertSame($new_candidate->note, '');
   }
 }
