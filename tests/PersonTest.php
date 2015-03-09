@@ -8,6 +8,13 @@ class PersonTest extends TestCase
   {
     $this->assertSame(Person::classUrl(), '/people');
   }
+
+  public function testInstanceUrl()
+  {
+    $person = self::createTestPerson();
+    $person = Person::retrieve($person->id);
+    $this->assertSame($person->instanceUrl(), "/people/{$person->id}");
+  }
   
   public function testListAllPeople()
   {

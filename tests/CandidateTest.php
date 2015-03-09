@@ -9,6 +9,13 @@ class CandidateTest extends TestCase
     $this->assertSame(Candidate::classUrl(), '/candidates');
   }
 
+  public function testInstanceUrl()
+  {
+    $candidate = self::createTestCandidate();
+    $candidate = Candidate::retrieve($candidate->id);
+    $this->assertSame($candidate->instanceUrl(), "/candidates/{$candidate->id}");
+  }
+
   public function testListAllCandidates()
   {
     $candidate = self::createTestCandidate();
