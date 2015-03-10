@@ -42,7 +42,11 @@ class ApiResource extends Object
     $url = static::classUrl();
     $url = "{$url}/{$this['id']}";
     $response = $request->execute('get', $url, null, null);
-    $this->refreshObject(json_decode($response));
+    $json_response = json_decode($response);
+    if($json_response->object == 'candidate') {
+      $json_response->watchlists = new Watchlist($json_response->id);
+    }
+    $this->refreshObject($json_response);
     return $this;
   }
 
@@ -145,19 +149,19 @@ class ApiResource extends Object
     return json_decode($response)->data;
   }
 
-  protected static function _search($id, $options = null)
+  protected function _search($options = null)
   {
-    $url = self::classUrl();
+    $url = static::classUrl();
 
     // Set up params
     if($options == null) {
       $params = array(
-        'candidate_id' => $id,
+        'candidate_id' => $this->id,
       );
     }
     else {
       $params = $options;
-      $params['candidate_id'] = $id;
+      $params['candidate_id'] = $this->id;
     }
 
     $response = static::_makeRequest('post', $url, $params);

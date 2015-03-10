@@ -107,6 +107,7 @@ class CandidateTest extends TestCase
     $candidate = self::createTestCandidate();
     $candidate = Candidate::retrieve($candidate->id);
     $hits = $candidate->hits();
+    $candidate->watchlists->search();
     $this->assertSame(count($hits), 0);
   }
 }

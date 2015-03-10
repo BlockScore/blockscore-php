@@ -3,7 +3,17 @@
 namespace BlockScore;
 
 class Watchlist extends ApiResource
-{
+{ 
+
+  /**
+   * @param string|null $id The BlockScore object ID
+   *
+   * Constructor for Objects.
+   */
+  public function __construct($id)
+  {
+    $this->id = $id;
+  }
 
   /**
    * @param string $id The ID of the candidate to search for.
@@ -11,8 +21,8 @@ class Watchlist extends ApiResource
    *
    * @return Watchlist
    */
-  public static function search($id, $options = null)
+  public function search($options = null)
   {
-    return self::_search($id, $options);
+    return self::_search($options);
   }
 }
