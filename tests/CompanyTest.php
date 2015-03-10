@@ -12,8 +12,14 @@ class CompanyTest extends TestCase
   public function testInstanceUrl()
   {
     $company = self::createTestCompany();
-    $company = Company::retrieve($company->id);
     $this->assertSame($company->instanceUrl(), "/companies/{$company->id}");
+  }
+
+  public function testClassType()
+  {
+    $company = self::createTestCompany();
+    $this->assertTrue($company instanceof Company);
+    $this->assertTrue($company instanceof Object);
   }
   
   public function testListAllCompanies()

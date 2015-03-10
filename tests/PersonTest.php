@@ -12,8 +12,14 @@ class PersonTest extends TestCase
   public function testInstanceUrl()
   {
     $person = self::createTestPerson();
-    $person = Person::retrieve($person->id);
     $this->assertSame($person->instanceUrl(), "/people/{$person->id}");
+  }
+
+  public function testClassType()
+  {
+    $person = self::createTestPerson();
+    $this->assertTrue($person instanceof Person);
+    $this->assertTrue($person instanceof Object);
   }
   
   public function testListAllPeople()

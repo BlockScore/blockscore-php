@@ -108,6 +108,16 @@ class Object implements ArrayAccess
   }
 
   /**
+   * @param array $values The values to construct the object with
+   */
+  public static function constructObject($values)
+  {
+    $object = new static(isset($values->id) ? $values->id : null);
+    $object->refreshObject($values);
+    return $object;
+  }
+
+  /**
    * @param array $values The values to "refresh" the object with
    *
    * "Refreshes" the object with the new values.
@@ -133,7 +143,7 @@ class Object implements ArrayAccess
 
       $params[$key] = $value;
     }
-    
+
     return $params;
   }
 }

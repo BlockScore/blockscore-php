@@ -88,7 +88,8 @@ class ApiResource extends Object
   {
     $url = static::classUrl();
     $response = static::_makeRequest('get', $url, $params, $options);
-    return json_decode($response)->data;
+    $response = json_decode($response);
+    return Util\Util::convertToBlockScoreObject($response);
   }
 
   /**
@@ -101,7 +102,8 @@ class ApiResource extends Object
   {
     $url = static::classUrl();
     $response = static::_makeRequest('post', $url, $params, $options);
-    return json_decode($response);
+    $response = json_decode($response);
+    return Util\Util::convertToBlockScoreObject($response);
   }
 
   /**
@@ -136,7 +138,11 @@ class ApiResource extends Object
   {
     $url = $this->instanceUrl() . '/history';
     $response = static::_makeRequest('get', $url);
-    return json_decode($response);
+    $data = $response;
+    // Normalize response
+    $response = "{ \"object\": \"list\", \"data\": {$data} }";
+    $response = json_decode($response);
+    return Util\Util::convertToBlockScoreObject($response);
   }
 
   /**
@@ -146,7 +152,8 @@ class ApiResource extends Object
   {
     $url = $this->instanceUrl() . '/hits';
     $response = static::_makeRequest('get', $url);
-    return json_decode($response)->data;
+    $response = json_decode($response);
+    return Util\Util::convertToBlockScoreObject($response);
   }
 
   protected function _search($options = null)

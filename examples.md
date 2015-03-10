@@ -144,7 +144,8 @@ $candidate->hits();
 ### Search watchlists
 
 ```php
-$wl = \BlockScore\Watchlist::search("54e96f7f3638330003140000");
+$candidate = \BlockScore\Candidate::retrieve("54e96f7f3638330003140000");
+$wl = $candidate->watchlists->search();
 ```
 
 ---

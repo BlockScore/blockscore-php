@@ -15,6 +15,13 @@ class CandidateTest extends TestCase
     $candidate = Candidate::retrieve($candidate->id);
     $this->assertSame($candidate->instanceUrl(), "/candidates/{$candidate->id}");
   }
+
+  public function testClassType()
+  {
+    $Candidate = self::createTestCandidate();
+    $this->assertTrue($Candidate instanceof Candidate);
+    $this->assertTrue($Candidate instanceof Object);
+  }
   
   public function testListAllCandidates()
   {
