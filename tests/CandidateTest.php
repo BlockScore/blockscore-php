@@ -87,7 +87,7 @@ class CandidateTest extends TestCase
     $new_candidate = $candidate->save();
     $this->assertSame($new_candidate->note, '');
   }
-
+  
   public function testCandidateHistory()
   {
     $candidate = self::createTestCandidate();
@@ -101,7 +101,7 @@ class CandidateTest extends TestCase
     $this->assertNotEquals($history1[0]->ssn, $history2[0]->ssn);
     $this->assertSame($history1[0]->name_first, $history2[0]->name_first);
   }
-
+  
   public function testCandidateHitsEmpty()
   {
     $candidate = self::createTestCandidate();

@@ -12,3 +12,4 @@ require(dirname(__FILE__) . '/lib/ApiResource.php');
 require(dirname(__FILE__) . '/lib/Person.php');
 require(dirname(__FILE__) . '/lib/Candidate.php');
 require(dirname(__FILE__) . '/lib/Company.php');
+require(dirname(__FILE__) . '/lib/Watchlist.php');

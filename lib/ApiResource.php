@@ -144,4 +144,23 @@ class ApiResource extends Object
     $response = static::_makeRequest('get', $url);
     return json_decode($response)->data;
   }
+
+  protected static function _search($id, $options = null)
+  {
+    $url = self::classUrl();
+
+    // Set up params
+    if($options == null) {
+      $params = array(
+        'candidate_id' => $id,
+      );
+    }
+    else {
+      $params = $options;
+      $params['candidate_id'] = $id;
+    }
+
+    $response = static::_makeRequest('post', $url, $params);
+    return json_decode($response);
+  }
 }
