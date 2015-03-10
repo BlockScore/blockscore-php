@@ -9,10 +9,17 @@ class WatchlistTest extends TestCase
         $this->assertSame(Watchlist::classUrl(), '/watchlists');
     }
 
+    public function testClassType()
+    {
+        $candidate = self::createTestCandidate();
+        $wl = $candidate->watchlists->search();
+        $this->assertTrue($wl instanceof Watchlist);
+        $this->assertTrue($wl instanceof Object);
+    }
+    
     public function testWatchlistTestSearch()
     {
         $candidate = self::createTestCandidate();
-        $candidate = Candidate::retrieve($candidate->id);
         $wl = $candidate->watchlists->search();
         $this->assertSame(0, count($wl->matches));
     }
@@ -20,7 +27,6 @@ class WatchlistTest extends TestCase
     public function testWatchlistJohnSearch()
     {
         $candidate = self::createTestJohnCandidate();
-        $candidate = Candidate::retrieve($candidate->id);
         $wl = $candidate->watchlists->search();
         $this->assertGreaterThan(0, count($wl->matches));
         $this->assertSame('john bredenkamp', $wl->matches[0]->name_full);

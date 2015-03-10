@@ -128,6 +128,10 @@ class Object implements ArrayAccess
             unset($this->_unsavedValues[$key]);
             $this->_values[$key] = $value;
         }
+
+        if(isset($values->object) && $values->object == 'candidate') {
+            $this->_values['watchlists'] = new Watchlist($values->id);
+        }
     }
 
     /**

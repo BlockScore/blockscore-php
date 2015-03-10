@@ -42,11 +42,8 @@ class ApiResource extends Object
         $url = static::classUrl();
         $url = "{$url}/{$this['id']}";
         $response = $request->execute('get', $url, null, null);
-        $json_response = json_decode($response);
-        if($json_response->object == 'candidate') {
-            $json_response->watchlists = new Watchlist($json_response->id);
-        }
-        $this->refreshObject($json_response);
+        $response = json_decode($response);
+        $this->refreshObject($response);
         return $this;
     }
 
@@ -172,6 +169,7 @@ class ApiResource extends Object
         }
 
         $response = static::_makeRequest('post', $url, $params);
-        return json_decode($response);
+        $response = json_decode($response);
+        return Util\Util::convertToBlockScoreObject($response);
     }
 }

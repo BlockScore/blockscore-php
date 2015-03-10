@@ -29,6 +29,11 @@ class Util
             'question_set' => 'BlockScore\\QuestionSet',
         );
 
+        if (!isset($response->object) && isset($response->searched_lists)) {
+            $class = 'BlockScore\\Watchlist';
+            return $class::constructObject($response);
+        }
+
         if (self::isList($response)) {
             $mapped = array();
             $data = $response;
@@ -50,7 +55,8 @@ class Util
 
             return $class::constructObject($response);
         } else {
-            return Object::constructObject($response);
+            $class = 'BlockScore\\Object';
+            return $class::constructObject($response);
         }
     }
 }

@@ -54,7 +54,6 @@ class CandidateTest extends TestCase
     public function testDeleteCandidate()
     {
         $candidate = self::createTestCandidate();
-        $candidate = Candidate::retrieve($candidate->id);
         $deleted_candidate = $candidate->delete();
         $this->assertTrue($deleted_candidate->deleted);
         foreach (self::$test_candidate as $key => $value) {
@@ -65,7 +64,6 @@ class CandidateTest extends TestCase
     public function testEditCandidateSimple()
     {
         $candidate = self::createTestCandidate();
-        $candidate = Candidate::retrieve($candidate->id);
         $candidate->ssn = '9999';
         $new_candidate = $candidate->save();
         $this->assertNotEquals(self::$test_candidate['ssn'], $new_candidate->ssn);
@@ -75,7 +73,6 @@ class CandidateTest extends TestCase
     public function testEditCandidateComplex()
     {
         $candidate = self::createTestCandidate();
-        $candidate = Candidate::retrieve($candidate->id);
         $candidate->ssn = '9999';
         $candidate->ssn = '8888';
         $candidate->note = '';
@@ -89,7 +86,6 @@ class CandidateTest extends TestCase
     public function testEditCandidateNullConversion()
     {
         $candidate = self::createTestCandidate();
-        $candidate = Candidate::retrieve($candidate->id);
         $candidate->note = null;
         $new_candidate = $candidate->save();
         $this->assertSame($new_candidate->note, '');
@@ -98,7 +94,6 @@ class CandidateTest extends TestCase
     public function testCandidateHistory()
     {
         $candidate = self::createTestCandidate();
-        $candidate = Candidate::retrieve($candidate->id);
         $history1 = $candidate->history();
         $this->assertSame(count($history1), 1);
         $candidate->ssn = '7777';
@@ -112,7 +107,6 @@ class CandidateTest extends TestCase
     public function testCandidateHitsEmpty()
     {
         $candidate = self::createTestCandidate();
-        $candidate = Candidate::retrieve($candidate->id);
         $hits = $candidate->hits();
         $candidate->watchlists->search();
         $this->assertSame(count($hits), 0);
