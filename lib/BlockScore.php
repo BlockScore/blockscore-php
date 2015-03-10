@@ -4,51 +4,51 @@ namespace BlockScore;
 
 class BlockScore
 {
-  // @var string The BlockScore API key to be used with requests.
-  public static $apiKey;
+    // @var string The BlockScore API key to be used with requests.
+    public static $apiKey;
 
-  // @var string The URL for the BlockScore API.
-  public static $apiEndpoint = 'https://api.blockscore.com';
+    // @var string The URL for the BlockScore API.
+    public static $apiEndpoint = 'https://api.blockscore.com';
 
-  // @var string|null Version of the BlockScore API.
-  public static $apiVersion = null;
+    // @var string|null Version of the BlockScore API.
+    public static $apiVersion = null;
 
-  // @var string Version of the BlockScore PHP client library.
-  public static $clientVersion = 'x.x.x';
+    // @var string Version of the BlockScore PHP client library.
+    public static $clientVersion = 'x.x.x';
 
-  /**
-   * @return string The BlockScore API key used for requests.
-   */
-  public static function getApiKey()
-  {
-    return self::$apiKey;
-  }
+    /**
+     * @return string The BlockScore API key used for requests.
+     */
+    public static function getApiKey()
+    {
+        return self::$apiKey;
+    }
 
-  /**
-   * Sets the BlockScore API key to be used with requests.
-   *
-   * @param string $apiKey
-   */
-  public static function setApiKey($apiKey)
-  {
-    self::$apiKey = $apiKey;
-  }
+    /**
+     * Sets the BlockScore API key to be used with requests.
+     *
+     * @param string $apiKey
+     */
+    public static function setApiKey($apiKey)
+    {
+        self::$apiKey = $apiKey;
+    }
 
-  /**
-   * @return string The BlockScore API version used for requests.
-   */
-  public static function getApiVersion()
-  {
-    return self::$apiVersion;
-  }
+    /**
+     * @return string The BlockScore API version used for requests.
+     */
+    public static function getApiVersion()
+    {
+        return self::$apiVersion;
+    }
 
-  /**
-   * Sets the BlockScore API version to be used with requests.
-   *
-   * @param string $apiVersion
-   */
-  public static function setApiVersion($apiVersion)
-  {
-    self::$apiVersion = $apiVersion;
-  }
+    /**
+     * Sets the BlockScore API version to be used with requests.
+     *
+     * @param string $apiVersion
+     */
+    public static function setApiVersion($apiVersion)
+    {
+        self::$apiVersion = $apiVersion;
+    }
 }
