@@ -7,34 +7,31 @@ class Person extends ApiResource
 
     /**
      * @param string $id The ID of the person to retrieve.
-     * @param array|string|null $options
      *
-     * @return Person
+     * @return Person The retrieved person.
      */
-    public static function retrieve($id, $options = null)
+    public static function retrieve($id)
     {
-        return self::_retrieve($id, $options);
+        return self::_retrieve($id);
     }
 
     /**
-     * @param array|null $params
-     * @param array|string|null $options
+     * @param array|null $options
      *
      * @return array An array of Persons.
      */
-    public static function all($params = null, $options = null)
+    public static function all($options = null)
     {
-        return self::_all($params, $options);
+        return self::_all($options);
     }
 
     /**
-     * @param array|null $params
-     * @param array|string|null $options
+     * @param array $params
      *
      * @return Person The created person.
      */
-    public static function create($params = null, $options = null)
+    public static function create($params)
     {
-        return self::_create($params, $options);
+        return self::_create($params);
     }
 }

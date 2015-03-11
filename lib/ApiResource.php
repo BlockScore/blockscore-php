@@ -34,14 +34,14 @@ class ApiResource extends Object
     }
 
     /**
-     * @return object Returns the "refreshed" object from the BlockScore API.
+     * @return Object Returns the "refreshed" Object from the BlockScore API.
      */
     public function refresh()
     {
         $request = new ApiRequestor(BlockScore::$apiKey, BlockScore::$apiEndpoint);
         $url = static::classUrl();
         $url = "{$url}/{$this['id']}";
-        $response = $request->execute('get', $url, null, null);
+        $response = $request->execute('get', $url);
         $this->refreshObject($response);
         return $this;
     }
@@ -49,10 +49,10 @@ class ApiResource extends Object
     /**
      * @param string $method The HTTP method to use.
      * @param string $url The URL to use.
-     * @param array|null $params The parameters to use for the request.
+     * @param array|string|null $params The parameters to use for the request.
      * @param array|null $options The options to use for the response.
      *
-     * @return string The response from the BlockScore API.
+     * @return JSON The response from the BlockScore API.
      */
     public static function _makeRequest($method, $url, $params = null, $options = null)
     {
@@ -63,11 +63,10 @@ class ApiResource extends Object
 
     /**
      * @param string $id The ID of the object to retrieve.
-     * @param array|null $options The options to use.
      *
-     * @return Object The refreshed instance.
+     * @return Object The retrieved instance.
      */
-    protected static function _retrieve($id, $options = null)
+    protected static function _retrieve($id)
     {
         $instance = new static($id);
         $instance->refresh();
@@ -75,33 +74,31 @@ class ApiResource extends Object
     }
 
     /**
-     * @param array|null $params The parameters to use .
      * @param array|null $options The options to use for the response.
      *
-     * @return JSON The response from the BlockScore API in JSON format.
+     * @return array An array of Objects.
      */
-    protected static function _all($params = null, $options = null)
+    protected static function _all($options = null)
     {
         $url = static::classUrl();
-        $response = static::_makeRequest('get', $url, $params, $options);
+        $response = static::_makeRequest('get', $url, null, $options);
         return Util\Util::convertToBlockScoreObject($response);
     }
 
     /**
-     * @param array|null $params The parameters to use.
-     * @param array|null $options The options to use for the response.
+     * @param array $params The parameters to use.
      *
-     * @return JSON The response from the BlockScore API in JSON format.
+     * @return Object The created BlockScore Object.
      */
-    protected static function _create($params = null, $options = null)
+    protected static function _create($params)
     {
         $url = static::classUrl();
-        $response = static::_makeRequest('post', $url, $params, $options);
+        $response = static::_makeRequest('post', $url, $params);
         return Util\Util::convertToBlockScoreObject($response);
     }
 
     /**
-     * @return Object The refreshed instance.
+     * @return Object The refreshed (and now deleted) instance.
      */
     protected function _delete()
     {
@@ -112,7 +109,7 @@ class ApiResource extends Object
     }
 
     /**
-     * @return Object The refreshed instance.
+     * @return Object The refreshed instance after saving unsaved attributes.
      */
     protected function _save()
     {
@@ -126,13 +123,14 @@ class ApiResource extends Object
     }
 
     /**
-     * @return array The history of the candidate in an array of candidates.
+     * @return array The history of the Candidate in an array of Candidates.
      */
     protected function _history()
     {
         $url = $this->instanceUrl() . '/history';
         $response = static::_makeRequest('get', $url);
         $data = json_encode($response);
+
         // Normalize response
         $response = "{ \"object\": \"list\", \"data\": {$data} }";
         $response = json_decode($response);
@@ -140,7 +138,7 @@ class ApiResource extends Object
     }
 
     /**
-     * @return array The hits of the candidate in an array of candidates.
+     * @return array The hits of the Candidate in an array of Candidates.
      */
     protected function _hits()
     {
@@ -149,47 +147,34 @@ class ApiResource extends Object
         return Util\Util::convertToBlockScoreObject($response);
     }
 
-    protected function _search($options = null)
+    /**
+     * @return Watchlist The Watchlist search results.
+     */
+    protected function _search()
     {
         $url = static::classUrl();
-
-        // Set up params
-        if($options == null) {
-            $params = array(
-                'candidate_id' => $this->id,
-            );
-        }
-        else {
-            $params = $options;
-            $params['candidate_id'] = $this->id;
-        }
-
+        $params = array('candidate_id' => $this->id);
         $response = static::_makeRequest('post', $url, $params);
         return Util\Util::convertToBlockScoreObject($response);
     }
 
-    protected function _createQuestionSet($options = null)
+    /**
+     * @return QuestionSet The created QuestionSet.
+     */
+    protected function _createQuestionSet()
     {
         $url = static::classUrl();
-
-        // Set up params
-        if($options == null) {
-            $params = array(
-                'person_id' => $this->id,
-            );
-        }
-        else {
-            $params = $options;
-            $params['person_id'] = $this->id;
-        }
-
+        $params = array('person_id' => $this->id);
         $response = static::_makeRequest('post', $url, $params);
         $qs_obj = Util\Util::convertToBlockScoreObject($response);
         $this->addExisting($qs_obj);
         return $qs_obj;
     }
 
-    protected function _score($answers, $options = null)
+    /**
+     * @return QuestionSet The scored QuestionSet.
+     */
+    protected function _score($answers)
     {
         $url = static::instanceUrl() . '/score';
 

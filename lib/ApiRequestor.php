@@ -4,10 +4,16 @@ namespace BlockScore;
 
 class ApiRequestor
 {
-
+    // @var string The API key to use for requests.
     private $_apiKey;
+
+    // @var string The API endpoint to use for requests.
     private $_apiEndpoint;
 
+    /**
+     * @param string|null $apiKey The API key to use for requests.
+     * @param string|null $apiEndpoint The API endpoint to use for requests.
+     */
     public function __construct($apiKey = null, $apiEndpoint = null)
     {
         $this->_apiKey = $apiKey;
@@ -17,15 +23,32 @@ class ApiRequestor
         $this->_apiEndpoint = $apiEndpoint;
     }
 
+    /**
+     * @param string $method The HTTP method to use.
+     * @param string $url The URL to use.
+     * @param array|string|null $params The parameters to use for the request.
+     * @param array|null $options The options to use for the response.
+     *
+     * @return JSON The response from the BlockScore API.
+     */
     public function execute($method, $url, $params = null, $options = null)
     {
         $url = "{$this->_apiEndpoint}{$url}";
+        if ($options != null && !is_array($options)) {
+            throw new \Exception("Invalid format for options. Options must be an array. Attemped options: {$options}.");
+        }
         list($response_body, $response_code) =
         $this->_makeCurlRequest($method, $url, $params, $options);
         $response = $this->_interpretResponse($response_body, $response_code);
         return $response;
     }
 
+    /**
+     * @param string $response_body The body of the response from the BlockScore API.
+     * @param string $response_code The code of the response from the BlockScore API.
+     *
+     * @return JSON The response from the BlockScore API.
+     */
     private function _interpretResponse($response_body, $response_code)
     {
         try {
@@ -45,6 +68,12 @@ class ApiRequestor
         return $response;
     }
 
+    /**
+     * @param string $response_body The body of the response from the BlockScore API.
+     * @param string $response_code The code of the response from the BlockScore API.
+     * @param JSON $response The response in a JSON object.
+     *
+     */
     public function handleApiError($response_body, $response_code, $response)
     {
         if (!isset($response->error)) {
@@ -58,9 +87,50 @@ class ApiRequestor
         throw new \Exception("Error ({$error}): {$message}");
     }
 
+    /**
+     * @param array|string $params The parameters for a request.
+     * @param array $options The options for a request.
+     *
+     * @return array|string The parameters combined with the options.
+     */
+    private function _combineParamsAndOptions($params, $options)
+    {
+        if ($params == null && $options == null) {
+            return null;
+        } elseif ($params != null && $options == null) {
+            return $params;
+        } elseif ($params == null && $options != null) {
+            return $options;
+        } else {
+            if (is_array($params)) {
+                // Add options to params array
+                foreach ($options as $key => $value) {
+                    $params[$key] = $value;
+                }
+            } else {
+                // Add options to params string
+                foreach ($options as $key => $value) {
+                    $params .= "{$key}={$value}";
+                }
+            }
+
+            return $params;
+        }
+    }
+
+    /**
+     * @param string $method The HTTP method to use.
+     * @param string $url The URL to use.
+     * @param array|string|null $params The parameters to use for the request.
+     * @param array|null $options The options to use for the response.
+     *
+     * @return array The response body and code from the BlockScore API.
+     */
     private function _makeCurlRequest($method, $url, $params = null, $options = null)
     {
         $curl = curl_init();
+
+        $params = $this->_combineParamsAndOptions($params, $options);
 
         switch ($method) {
             case 'post':

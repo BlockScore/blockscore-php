@@ -7,13 +7,12 @@ class Candidate extends ApiResource
 
     /**
      * @param string $id The ID of the candidate to retrieve.
-     * @param array|string|null $options
      *
      * @return Candidate
      */
-    public static function retrieve($id, $options = null)
+    public static function retrieve($id)
     {
-        return self::_retrieve($id, $options);
+        return self::_retrieve($id);
     }
 
     /**
@@ -49,24 +48,22 @@ class Candidate extends ApiResource
     }
 
     /**
-     * @param array|null $params
-     * @param array|string|null $options
+     * @param array|null $options
      *
      * @return array An array of Candidates.
      */
-    public static function all($params = null, $options = null)
+    public static function all($options = null)
     {
-        return self::_all($params, $options);
+        return self::_all($options);
     }
 
     /**
-     * @param array|null $params
-     * @param array|string|null $options
+     * @param array $params
      *
      * @return Candidate The created Candidate.
      */
-    public static function create($params = null, $options = null)
+    public static function create($params)
     {
-        return self::_create($params, $options);
+        return self::_create($params);
     }
 }

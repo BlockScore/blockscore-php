@@ -44,7 +44,7 @@ class QuestionSetTest extends TestCase
             $this->assertSame($retrieved_qs->$key, $value);
         }
     }
-
+    
     public function testScoringQuestionSet()
     {
         $person = self::createTestPerson();

@@ -4,39 +4,62 @@ namespace BlockScore;
 
 class QuestionSet extends ApiResource
 {
+    // @var array Existing question sets for a user.
     private $_existing;
 
+    /**
+     * @param string $id The id of a Person.
+     */
     public function __construct($id)
     {
-        // Actually the person id...
         $this->id = $id;
 
-        // Existing question sets for the person
         $this->_existing = array();
     }
 
-    public function create($options = null)
+    /**
+     * @return QuestionSet The created QuestionSet.
+     */
+    public function create()
     {
         return self::_createQuestionSet();
     }
 
+    /**
+     * @return array An array of QuestionSets for the current Person.
+     */
     public function all()
     {
         return $this->_existing;
     }
 
-    public function addExisting($qs)
+    /**
+     * @param QuestionSet $qs A new QuestionSet.
+     *
+     * Adds a new QuestionSet to the existing array. Helper method.
+     */
+    protected function addExisting($qs)
     {
         array_push($this->_existing, $qs);
     }
 
-    public static function retrieve($id, $options = null)
+    /**
+     * @param string $id The id of a QuestionSet to retrieve.
+     *
+     * @return QuestionSet The specific QuestionSet.
+     */
+    public static function retrieve($id)
     {
-        return self::_retrieve($id, $options);
+        return self::_retrieve($id);
     }
 
-    public function score($answers, $options = null)
+    /**
+     * @param array $answers The answers for a QuestionSet.
+     *
+     * @return QuestionSet The QuestionSet with the score.
+     */
+    public function score($answers)
     {
-        return self::_score($answers, $options);
+        return self::_score($answers);
     }
 }

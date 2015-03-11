@@ -7,7 +7,7 @@ class ErrorTest extends TestCase
     public function testApiErrorHandling()
     {
         self::setTestApiKey();
-
+    
         try {
             Person::create(array(
                 'name_first' => 'Jane',
@@ -23,7 +23,7 @@ class ErrorTest extends TestCase
                 'address_postal_code' => '44444',
                 'address_country_code' => 'US',
             ));
-
+    
             // Always fail
             $this->assertTrue(false);
         } catch (\Exception $e) {
@@ -32,11 +32,11 @@ class ErrorTest extends TestCase
             $this->assertTrue($e instanceof \Exception);
         }
     }
-
+    
     public function testApiKeyErrorHandling()
     {
         BlockScore::$apiKey = 'sk_test_11111111111111111111111111111111';
-
+    
         try {
             Person::create(array(
                 'name_first' => 'Jane',
@@ -52,7 +52,7 @@ class ErrorTest extends TestCase
                 'address_postal_code' => '44444',
                 'address_country_code' => 'US',
             ));
-
+    
             // Always fail
             $this->assertTrue(false);
         } catch (\Exception $e) {
@@ -60,7 +60,7 @@ class ErrorTest extends TestCase
             $this->assertSame($e->getMessage(), $expected);
             $this->assertTrue($e instanceof \Exception);
         }
-
+    
         self::setTestApiKey();
     }
 
@@ -80,5 +80,17 @@ class ErrorTest extends TestCase
         }
 
         BlockScore::$apiEndpoint = $endpoint;
+    }
+
+    public function testInvalidOptionsErrorHandling()
+    {
+        try {
+            $options = "count: 5";
+            $people = Person::all($options);
+        } catch (\Exception $e) {
+            $expected = 'Invalid format for options. Options must be an array. Attemped options: count: 5.';
+            $this->assertSame($e->getMessage(), $expected);
+            $this->assertTrue($e instanceof \Exception);
+        }
     }
 }

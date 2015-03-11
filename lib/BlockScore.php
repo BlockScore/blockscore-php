@@ -25,8 +25,6 @@ class BlockScore
     }
 
     /**
-     * Sets the BlockScore API key to be used with requests.
-     *
      * @param string $apiKey
      */
     public static function setApiKey($apiKey)
@@ -43,8 +41,6 @@ class BlockScore
     }
 
     /**
-     * Sets the BlockScore API version to be used with requests.
-     *
      * @param string $apiVersion
      */
     public static function setApiVersion($apiVersion)

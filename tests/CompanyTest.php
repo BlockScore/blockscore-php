@@ -49,4 +49,18 @@ class CompanyTest extends TestCase
             $this->assertSame($company->$key, $value);
         }
     }
+
+    public function testOptionsForAllCompanies()
+    {
+        $options = array('count' => 5);
+        self::createTestCompany();
+        self::createTestCompany();
+        self::createTestCompany();
+        self::createTestCompany();
+        self::createTestCompany();
+        self::createTestCompany();
+        sleep(2);
+        $companies = Company::all($options);
+        $this->assertSame(5, count($companies));
+    }
 }

@@ -24,16 +24,13 @@ class Object implements ArrayAccess
 
     /**
      * @param string|null $id The BlockScore object ID
-     *
-     * Constructor for Objects.
      */
     public function __construct($id = null)
     {
         $this->_values = array();
         $this->_unsavedValues = array();
 
-        if ($id !== null)
-        {
+        if ($id !== null) {
             $this->id = $id;
         }
     }
@@ -109,6 +106,8 @@ class Object implements ArrayAccess
 
     /**
      * @param array $values The values to construct the object with
+     *
+     * @return Object The constructed Object.
      */
     public static function constructObject($values)
     {

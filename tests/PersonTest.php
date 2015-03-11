@@ -8,13 +8,13 @@ class PersonTest extends TestCase
     {
         $this->assertSame(Person::classUrl(), '/people');
     }
-
+    
     public function testInstanceUrl()
     {
         $person = self::createTestPerson();
         $this->assertSame($person->instanceUrl(), "/people/{$person->id}");
     }
-
+    
     public function testClassType()
     {
         $person = self::createTestPerson();
@@ -48,5 +48,19 @@ class PersonTest extends TestCase
         foreach (self::$test_person as $key => $value) {
             $this->assertSame($person->$key, $value);
         }
+    }
+
+    public function testOptionsForAllPeople()
+    {
+        $options = array('count' => 5);
+        self::createTestPerson();
+        self::createTestPerson();
+        self::createTestPerson();
+        self::createTestPerson();
+        self::createTestPerson();
+        self::createTestPerson();
+        sleep(2);
+        $people = Person::all($options);
+        $this->assertSame(5, count($people));
     }
 }

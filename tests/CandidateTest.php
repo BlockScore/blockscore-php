@@ -111,4 +111,18 @@ class CandidateTest extends TestCase
         $candidate->watchlists->search();
         $this->assertSame(count($hits), 0);
     }
+
+    public function testOptionsForAllCandidates()
+    {
+        $options = array('count' => 5);
+        self::createTestCandidate();
+        self::createTestCandidate();
+        self::createTestCandidate();
+        self::createTestCandidate();
+        self::createTestCandidate();
+        self::createTestCandidate();
+        sleep(2);
+        $candidates = Company::all($options);
+        $this->assertSame(5, count($candidates));
+    }
 }
