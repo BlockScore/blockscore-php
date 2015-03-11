@@ -67,7 +67,7 @@ class CandidateTest extends TestCase
         $candidate->ssn = '9999';
         $new_candidate = $candidate->save();
         $this->assertNotEquals(self::$test_candidate['ssn'], $new_candidate->ssn);
-        $this->assertSame($new_candidate->ssn, '9999');
+        $this->assertSame('9999', $new_candidate->ssn);
     }
     
     public function testEditCandidateComplex()
@@ -79,8 +79,8 @@ class CandidateTest extends TestCase
         $new_candidate = $candidate->save();
         $this->assertNotEquals(self::$test_candidate['ssn'], $new_candidate->ssn);
         $this->assertNotEquals(self::$test_candidate['note'], $new_candidate->note);
-        $this->assertSame($new_candidate->ssn, '8888');
-        $this->assertSame($new_candidate->note, '');
+        $this->assertSame('8888', $new_candidate->ssn);
+        $this->assertSame('', $new_candidate->note);
     }
     
     public function testEditCandidateNullConversion()
@@ -88,18 +88,18 @@ class CandidateTest extends TestCase
         $candidate = self::createTestCandidate();
         $candidate->note = null;
         $new_candidate = $candidate->save();
-        $this->assertSame($new_candidate->note, '');
+        $this->assertSame('', $new_candidate->note);
     }
     
     public function testCandidateHistory()
     {
         $candidate = self::createTestCandidate();
         $history1 = $candidate->history();
-        $this->assertSame(count($history1), 1);
+        $this->assertSame(1, count($history1));
         $candidate->ssn = '7777';
         $new_candidate = $candidate->save();
         $history2 = $candidate->history();
-        $this->assertSame(count($history2), 2);
+        $this->assertSame(2, count($history2));
         $this->assertNotEquals($history1[0]->ssn, $history2[0]->ssn);
         $this->assertSame($history1[0]->name_first, $history2[0]->name_first);
     }
@@ -109,7 +109,7 @@ class CandidateTest extends TestCase
         $candidate = self::createTestCandidate();
         $hits = $candidate->hits();
         $candidate->watchlists->search();
-        $this->assertSame(count($hits), 0);
+        $this->assertSame(0, count($hits));
     }
 
     public function testOptionsForAllCandidates()
