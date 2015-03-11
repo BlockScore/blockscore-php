@@ -18,9 +18,9 @@ class CandidateTest extends TestCase
 
     public function testClassType()
     {
-        $Candidate = self::createTestCandidate();
-        $this->assertTrue($Candidate instanceof Candidate);
-        $this->assertTrue($Candidate instanceof Object);
+        $candidate = self::createTestCandidate();
+        $this->assertTrue($candidate instanceof Candidate);
+        $this->assertTrue($candidate instanceof Object);
     }
     
     public function testListAllCandidates()

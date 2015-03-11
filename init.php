@@ -14,3 +14,4 @@ require(dirname(__FILE__) . '/lib/Person.php');
 require(dirname(__FILE__) . '/lib/Candidate.php');
 require(dirname(__FILE__) . '/lib/Company.php');
 require(dirname(__FILE__) . '/lib/Watchlist.php');
+require(dirname(__FILE__) . '/lib/QuestionSet.php');

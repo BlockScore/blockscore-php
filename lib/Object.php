@@ -132,6 +132,14 @@ class Object implements ArrayAccess
         if(isset($values->object) && $values->object == 'candidate') {
             $this->_values['watchlists'] = new Watchlist($values->id);
         }
+
+        if(isset($values->object) && $values->object == 'person') {
+            $qs_list = $values->question_sets;
+            $this->_values['question_sets'] = new QuestionSet($values->id);
+            foreach($qs_list as $i) {
+                $this->_values['question_sets']->addExisting(QuestionSet::retrieve($i));
+            }
+        }
     }
 
     /**

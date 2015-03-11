@@ -172,4 +172,42 @@ class ApiResource extends Object
         $response = json_decode($response);
         return Util\Util::convertToBlockScoreObject($response);
     }
+
+    protected function _createQuestionSet($options = null)
+    {
+        $url = static::classUrl();
+
+        // Set up params
+        if($options == null) {
+            $params = array(
+                'person_id' => $this->id,
+            );
+        }
+        else {
+            $params = $options;
+            $params['person_id'] = $this->id;
+        }
+
+        $response = static::_makeRequest('post', $url, $params);
+        $response = json_decode($response);
+        $qs_obj = Util\Util::convertToBlockScoreObject($response);
+        $this->addExisting($qs_obj);
+        return $qs_obj;
+    }
+
+    protected function _score($answers, $options = null)
+    {
+        $url = static::instanceUrl() . '/score';
+
+        // Weird request requires us to build the cURL request manually
+        $params = '';
+        foreach ($answers as $key => $value) {
+            $params = $params . 'answers[][{$key}]={$value}&';
+        }
+        rtrim($params, '&');
+
+        $response = static::_makeRequest('post', $url, $params);
+        $response = json_decode($response);
+        return Util\Util::convertToBlockScoreObject($response);
+    }
 }
