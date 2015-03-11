@@ -1,0 +1,7 @@
+{
+    "name": "blockscore/blockscore-php",
+    "description": "An API wrapper for the BlockScore API using PHP.",
+    "require": {
+        "php": ">=5.3.3"
+    }
+}
