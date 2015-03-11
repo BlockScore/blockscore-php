@@ -1,45 +1,86 @@
-# blockscore-php
+## blockscore-php
 
-This is the official library for PHP clients of the BlockScore API. [Click here to read the full documentation](http://docs.blockscore.com/php).
+This is the official PHP client library of the [BlockScore API](https://blockscore.com). You can sign up for an account on [our dashboard](https://manage.blockscore.com/signup).
 
-## Options
+### Requirements
 
-When making your API request, you can pass in various options as an array. More information is available in the [documentation](http://docs.blockscore.com).
+PHP 5.3.3 and later.
 
-Example:
+### Composer
 
-```php
-$options = array(
-  'offset' => 20,
-  'count' => 10,
-  'start_date' => '1399335994',
-  'end_date' => '1399462730',
-  'filter[status]' => 'valid',
-);
+Add the following to your `composer.json`:
 
-$person = Person::create($person_array, $options);
+```json
+{
+  "require": {
+    "blockscore/blockscore-php": "4.*"
+  }
+}
 ```
 
-### Available Options
+Make sure to install the changes:
 
-- offset
-- count
-- start_date
-- end_date
-- filter[key]
-- [$attribute[$comparator]](http://docs.blockscore.com/v4.0/curl/#filtering)
-- filter[q] \(Fuzzy search)
+```
+composer.phar install
+```
 
-## Contributing to BlockScore
- 
-* Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
-* Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
-* Fork the project.
-* Start a feature/bugfix branch.
-* Commit and push until you are happy with your contribution.
-* Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
-* Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
+Make sure that Composer autoload is added somewhere in your project like so:
 
-## Copyright
+```
+require_once('vendor/autoload.php');
+```
 
-Copyright (c) 2015 BlockScore. See `LICENSE.txt` for further details.
+### Manual Installation
+
+If you would rather manually include the library in your project, you can [download this repository](https://github.com/BlockScore/blockscore-php/archive/master.zip) and add the following line to your project:
+
+```
+require_once('/path/to/blockscore-php/init.php');
+```
+
+### Getting Started
+
+This is an example of creating a person verification and setting up the library:
+
+```php
+\BlockScore\BlockScore::setApiKey('sk_test_11111111111111111111111111111111');
+
+$person = \BlockScore\Person::create(array(
+    'name_first' => 'Jane',
+    'name_last' => 'Doe',
+    'birth_day' => 1,
+    'birth_month' => 1,
+    'birth_year' => 1990,
+    'document_type' => 'ssn',
+    'document_value' => '0000',
+    'address_street1' => '123 Something Ave',
+    'address_city' => 'Newton Falls',
+    'address_subdivision' => 'OH',
+    'address_postal_code' => '44444',
+    'address_country_code' => 'US',
+));
+
+echo $person;
+```
+
+### Documentation
+
+Our [API Reference](http://docs.blockscore.com/php) contains all of the code examples for this library.
+
+### Tests
+
+If you want to run our test suite, please install [PHPUnit](https://packagist.org/packages/phpunit/phpunit) using [Composer](https://getcomposer.org/)
+
+```
+composer.phar update --dev
+```
+
+To run the client lib's test suite, run
+
+```
+./vendor/bin/phpunit
+```
+
+### Credit
+
+This library is largely based on the wonderful [stripe-php](https://github.com/stripe/stripe-php) library.
