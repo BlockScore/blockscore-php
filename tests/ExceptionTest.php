@@ -2,32 +2,18 @@
 
 namespace BlockScore;
 
-class ErrorTest extends TestCase
+class ExceptionTest extends TestCase
 {
     public function testApiErrorHandling()
     {
         self::setTestApiKey();
     
         try {
-            Person::create(array(
-                'name_first' => 'Jane',
-                'name_last' => 'Doe',
-                'birth_day' => 1,
-                'birth_month' => 'January',
-                'birth_year' => 1990,
-                'document_type' => 'ssn',
-                'document_value' => '0000',
-                'address_street1' => '123 Something Ave',
-                'address_city' => 'Newton Falls',
-                'address_subdivision' => 'OH',
-                'address_postal_code' => '44444',
-                'address_country_code' => 'US',
-            ));
-    
+            Person::create(array());
             // Always fail
             $this->assertTrue(false);
         } catch (Util\Exception $e) {
-            $expected = 'api_error';
+            $expected = 'invalid_request_error';
             $this->assertSame($e->type, $expected);
             $this->assertTrue($e instanceof Util\Exception);
         }
