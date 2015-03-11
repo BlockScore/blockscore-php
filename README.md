@@ -2,9 +2,33 @@
 
 This is the official library for PHP clients of the BlockScore API. [Click here to read the full documentation](http://docs.blockscore.com/php).
 
-## To-Do
+## Options
 
-Everything
+When making your API request, you can pass in various options as an array. More information is available in the [documentation](http://docs.blockscore.com).
+
+Example:
+
+```php
+$options = array(
+  'offset' => 20,
+  'count' => 10,
+  'start_date' => '1399335994',
+  'end_date' => '1399462730',
+  'filter[status]' => 'valid',
+);
+
+$person = Person::create($person_array, $options);
+```
+
+### Available Options
+
+- offset
+- count
+- start_date
+- end_date
+- filter[key]
+- [$attribute[$comparator]](http://docs.blockscore.com/v4.0/curl/#filtering)
+- filter[q] \(Fuzzy search)
 
 ## Contributing to BlockScore
  
