@@ -1,6 +1,6 @@
 # blockscore-php
 
-This is the official library for PHP clients of the BlockScore API. [Click here to read the full documentation](https://manage.blockscore.com/docs).
+This is the official library for PHP clients of the BlockScore API. [Click here to read the full documentation](http://docs.blockscore.com/php).
 
 ## To-Do
 
