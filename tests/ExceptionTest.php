@@ -14,7 +14,7 @@ class ExceptionTest extends TestCase
             $this->assertTrue(false);
         } catch (Util\Exception $e) {
             $expected = 'invalid_request_error';
-            $this->assertSame($e->type, $expected);
+            $this->assertSame($expected, $e->type);
             $this->assertTrue($e instanceof Util\Exception);
         }
     }
@@ -43,7 +43,7 @@ class ExceptionTest extends TestCase
             $this->assertTrue(false);
         } catch (Util\Exception $e) {
             $expected = 'invalid_request_error';
-            $this->assertSame($e->type, $expected);
+            $this->assertSame($expected, $e->type);
             $this->assertTrue($e instanceof Util\Exception);
         }
     
@@ -61,7 +61,7 @@ class ExceptionTest extends TestCase
             $this->assertTrue(false);
         } catch (Util\Exception $e) {
             $expected = 'curl_error';
-            $this->assertSame($e->type, $expected);
+            $this->assertSame($expected, $e->type);
             $this->assertTrue($e instanceof Util\Exception);
         }
 
@@ -75,7 +75,7 @@ class ExceptionTest extends TestCase
             $people = Person::all($options);
         } catch (Util\Exception $e) {
             $expected = 'invalid_options_error';
-            $this->assertSame($e->type, $expected);
+            $this->assertSame($expected, $e->type);
             $this->assertTrue($e instanceof Util\Exception);
         }
     }
