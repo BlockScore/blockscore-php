@@ -35,7 +35,7 @@ class ApiRequestor
     {
         $url = "{$this->_apiEndpoint}{$url}";
         if ($options != null && !is_array($options)) {
-            throw new \Exception("Invalid format for options. Options must be an array. Attemped options: {$options}.");
+            throw new Util\Exception("Invalid format for options. Options must be an array. Attemped options: {$options}.", 'invalid_options_error');
         }
         list($response_body, $response_code) =
         $this->_makeCurlRequest($method, $url, $params, $options);
@@ -54,10 +54,10 @@ class ApiRequestor
         try {
             $response = json_decode($response_body);
         }
-        catch (\Exception $e) {
+        catch (Util\Exception $e) {
             $message = "API returned invalid response body {$response_body} " .
-                       "with HTTP response code {$response_code}";
-            throw new \Exception($message);
+                       "with HTTP response code {$response_code}.";
+            throw new Util\Exception($message, 'invalid_response_body', $response_code);
         }
 
         // If response code is not within the "OK" range, throw error
@@ -78,13 +78,13 @@ class ApiRequestor
     {
         if (!isset($response->error)) {
             $message = "API returned invalid response body {$response_body} " .
-                   "with HTTP response code {$response_code}";
-            throw new \Exception($message);
+                   "with HTTP response code {$response_code}.";
+            throw new Util\Exception($message, 'invalid_response_body', $response_code);
         }
 
         $error = $response->error->type;
         $message = $response->error->message;
-        throw new \Exception("Error ({$error}): {$message}");
+        throw new Util\Exception($message, $error, $response_code);
     }
 
     /**
@@ -161,7 +161,7 @@ class ApiRequestor
                 break;
 
             default:
-                throw new \Exception('Unrecognized HTTP method.');
+                throw new Util\Exception('Unrecognized HTTP method.', 'unknown_http_method');
         }
 
         // Auth with API key
@@ -188,7 +188,7 @@ class ApiRequestor
             $errno = curl_errno($curl);
             $message = curl_error($curl);
             curl_close($curl);
-            throw new \Exception("Curl Error ({$errno}): {$message}");
+            throw new Util\Exception("Curl Error ({$errno}): {$message}.", 'curl_error');
         }
 
         $response_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);

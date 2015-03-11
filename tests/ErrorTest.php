@@ -26,10 +26,10 @@ class ErrorTest extends TestCase
     
             // Always fail
             $this->assertTrue(false);
-        } catch (\Exception $e) {
-            $expected = 'Error (api_error): An error has occurred. If this problem persists, please message support@blockscore.com.';
-            $this->assertSame($e->getMessage(), $expected);
-            $this->assertTrue($e instanceof \Exception);
+        } catch (Util\Exception $e) {
+            $expected = 'api_error';
+            $this->assertSame($e->type, $expected);
+            $this->assertTrue($e instanceof Util\Exception);
         }
     }
     
@@ -55,10 +55,10 @@ class ErrorTest extends TestCase
     
             // Always fail
             $this->assertTrue(false);
-        } catch (\Exception $e) {
-            $expected = 'Error (invalid_request_error): The supplied API key is invalid.';
-            $this->assertSame($e->getMessage(), $expected);
-            $this->assertTrue($e instanceof \Exception);
+        } catch (Util\Exception $e) {
+            $expected = 'invalid_request_error';
+            $this->assertSame($e->type, $expected);
+            $this->assertTrue($e instanceof Util\Exception);
         }
     
         self::setTestApiKey();
@@ -73,10 +73,10 @@ class ErrorTest extends TestCase
 
             // Always fail
             $this->assertTrue(false);
-        } catch (\Exception $e) {
-            $expected = 'Curl Error (6): Could not resolve host: totally-legit-api-endpoint.blockscore.com';
-            $this->assertSame($e->getMessage(), $expected);
-            $this->assertTrue($e instanceof \Exception);
+        } catch (Util\Exception $e) {
+            $expected = 'curl_error';
+            $this->assertSame($e->type, $expected);
+            $this->assertTrue($e instanceof Util\Exception);
         }
 
         BlockScore::$apiEndpoint = $endpoint;
@@ -87,10 +87,10 @@ class ErrorTest extends TestCase
         try {
             $options = "count: 5";
             $people = Person::all($options);
-        } catch (\Exception $e) {
-            $expected = 'Invalid format for options. Options must be an array. Attemped options: count: 5.';
-            $this->assertSame($e->getMessage(), $expected);
-            $this->assertTrue($e instanceof \Exception);
+        } catch (Util\Exception $e) {
+            $expected = 'invalid_options_error';
+            $this->assertSame($e->type, $expected);
+            $this->assertTrue($e instanceof Util\Exception);
         }
     }
 }

@@ -8,6 +8,7 @@ require(dirname(__FILE__) . '/lib/Object.php');
 require(dirname(__FILE__) . '/lib/ApiRequestor.php');
 require(dirname(__FILE__) . '/lib/ApiResource.php');
 require(dirname(__FILE__) . '/lib/Util/Util.php');
+require(dirname(__FILE__) . '/lib/Util/Exception.php');
 
 // API Resources
 require(dirname(__FILE__) . '/lib/Person.php');
