@@ -25,7 +25,7 @@ class PersonTest extends TestCase
     public function testListAllPeople()
     {
         $person = self::createTestPerson();
-        sleep(2);
+        sleep(5);
         $people = Person::all();
         $first_person = $people[0];
         foreach (self::$test_person as $key => $value) {
@@ -59,7 +59,7 @@ class PersonTest extends TestCase
         self::createTestPerson();
         self::createTestPerson();
         self::createTestPerson();
-        sleep(2);
+        sleep(5);
         $people = Person::all($options);
         $this->assertSame(5, count($people));
     }

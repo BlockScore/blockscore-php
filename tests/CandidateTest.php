@@ -26,7 +26,7 @@ class CandidateTest extends TestCase
     public function testListAllCandidates()
     {
         $candidate = self::createTestCandidate();
-        sleep(2);
+        sleep(5);
         $candidates = Candidate::all();
         $first_candidate = $candidates[0];
         foreach (self::$test_candidate as $key => $value) {
@@ -121,7 +121,7 @@ class CandidateTest extends TestCase
         self::createTestCandidate();
         self::createTestCandidate();
         self::createTestCandidate();
-        sleep(2);
+        sleep(5);
         $candidates = Company::all($options);
         $this->assertSame(5, count($candidates));
     }
