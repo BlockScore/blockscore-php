@@ -9,12 +9,13 @@ class ExceptionTest extends TestCase
         self::setTestApiKey();
     
         try {
-            Person::create(array());
+            Person::create(array(
+                'name_first' => 'Jane',
+            ));
             // Always fail
             $this->assertTrue(false);
         } catch (Util\Exception $e) {
             $expected = 'invalid_request_error';
-            var_dump($e);
             $this->assertSame($expected, $e->type);
             $this->assertTrue($e instanceof Util\Exception);
         }
