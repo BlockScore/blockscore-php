@@ -8,7 +8,7 @@ PHP 5.3.29 and later.
 
 ### Composer
 
-Add the following to your `composer.json`:
+This library [can be used through Composer](https://packagist.org/packages/blockscore/blockscore-php) To get started, add the following to your `composer.json`:
 
 ```json
 {
