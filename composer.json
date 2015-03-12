@@ -2,9 +2,9 @@
     "name": "blockscore/blockscore-php",
     "description": "An API wrapper for the BlockScore API using PHP.",
     "require": {
-            "php": ">=5.4.37",
-            "ext-curl": "*",
-            "ext-json": "*"
+        "php": ">=5.4.37",
+        "ext-curl": "*",
+        "ext-json": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.0"

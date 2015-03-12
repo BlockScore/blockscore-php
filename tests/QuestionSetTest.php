@@ -32,7 +32,8 @@ class QuestionSetTest extends TestCase
         $this->assertSame(0, count($person->question_sets->all()));
         $qs = $person->question_sets->create();
         $this->assertSame(1, count($person->question_sets->all()));
-        $this->assertSame($qs->id, $person->question_sets->all()[0]->id);
+        $all_qs = $person->question_sets->all();
+        $this->assertSame($qs->id, $all_qs[0]->id);
     }
     
     public function testRetrieveQuestionSet()
