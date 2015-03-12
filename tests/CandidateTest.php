@@ -22,14 +22,13 @@ class CandidateTest extends TestCase
         $this->assertTrue($candidate instanceof Candidate);
         $this->assertTrue($candidate instanceof Object);
     }
-    
+
     public function testListAllCandidates()
     {
         $candidate = self::createTestCandidate();
-        sleep(5);
         $candidates = Candidate::all();
         $first_candidate = $candidates[0];
-        foreach (self::$test_candidate as $key => $value) {
+        foreach ($candidate as $key => $value) {
             $this->assertSame($first_candidate->$key, $value);
         }
     }
@@ -114,15 +113,10 @@ class CandidateTest extends TestCase
 
     public function testOptionsForAllCandidates()
     {
-        $options = array('count' => 5);
+        $options = array('count' => 1);
         self::createTestCandidate();
         self::createTestCandidate();
-        self::createTestCandidate();
-        self::createTestCandidate();
-        self::createTestCandidate();
-        self::createTestCandidate();
-        sleep(5);
         $candidates = Company::all($options);
-        $this->assertSame(5, count($candidates));
+        $this->assertSame(1, count($candidates));
     }
 }

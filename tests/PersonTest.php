@@ -25,10 +25,9 @@ class PersonTest extends TestCase
     public function testListAllPeople()
     {
         $person = self::createTestPerson();
-        sleep(5);
         $people = Person::all();
         $first_person = $people[0];
-        foreach (self::$test_person as $key => $value) {
+        foreach ($person as $key => $value) {
             $this->assertSame($first_person->$key, $value);
         }
     }
@@ -52,15 +51,10 @@ class PersonTest extends TestCase
 
     public function testOptionsForAllPeople()
     {
-        $options = array('count' => 5);
+        $options = array('count' => 1);
         self::createTestPerson();
         self::createTestPerson();
-        self::createTestPerson();
-        self::createTestPerson();
-        self::createTestPerson();
-        self::createTestPerson();
-        sleep(5);
         $people = Person::all($options);
-        $this->assertSame(5, count($people));
+        $this->assertSame(1, count($people));
     }
 }

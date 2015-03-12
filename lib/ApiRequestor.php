@@ -182,9 +182,10 @@ class ApiRequestor
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 
         $response_body = curl_exec($curl);
+        $response = $response_body;
 
         // Did Curl throw an error?
-        if ($response_body === false) {
+        if ($response === false) {
             $errno = curl_errno($curl);
             $message = curl_error($curl);
             curl_close($curl);
@@ -192,8 +193,9 @@ class ApiRequestor
         }
 
         $response_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $code = $response_code;
         curl_close($curl);
 
-        return array($response_body, $response_code);
+        return array($response, $code);
     }
 }

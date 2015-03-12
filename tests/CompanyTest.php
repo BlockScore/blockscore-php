@@ -25,10 +25,9 @@ class CompanyTest extends TestCase
     public function testListAllCompanies()
     {
         $company = self::createTestCompany();
-        sleep(5);
         $companies = Company::all();
         $first_company = $companies[0];
-        foreach (self::$test_company as $key => $value) {
+        foreach ($company as $key => $value) {
             $this->assertSame($first_company->$key, $value);
         }
     }
@@ -52,15 +51,10 @@ class CompanyTest extends TestCase
 
     public function testOptionsForAllCompanies()
     {
-        $options = array('count' => 5);
+        $options = array('count' => 1);
         self::createTestCompany();
         self::createTestCompany();
-        self::createTestCompany();
-        self::createTestCompany();
-        self::createTestCompany();
-        self::createTestCompany();
-        sleep(5);
         $companies = Company::all($options);
-        $this->assertSame(5, count($companies));
+        $this->assertSame(1, count($companies));
     }
 }

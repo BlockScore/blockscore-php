@@ -10,7 +10,6 @@ class TestCase extends \PHPUnit_Framework_TestCase
     const API_KEY = null;
     private static $first_names = array(
         'Jane',
-        'John',
         'Alain',
         'John',
         'Chris',
