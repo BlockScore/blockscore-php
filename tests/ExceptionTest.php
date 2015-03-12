@@ -14,6 +14,7 @@ class ExceptionTest extends TestCase
             $this->assertTrue(false);
         } catch (Util\Exception $e) {
             $expected = 'invalid_request_error';
+            var_dump($e);
             $this->assertSame($expected, $e->type);
             $this->assertTrue($e instanceof Util\Exception);
         }
