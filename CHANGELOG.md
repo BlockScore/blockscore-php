@@ -1,5 +1,9 @@
 ## Changelog
 
+### 4.0.1 - 11 March, 2015
+- Added compatibility for PHP 5.3.29.
+- Fixed certain build errors with TravisCI.
+
 ### 4.0.0 - 11 March, 2015
 
 - First version of new official BlockScore PHP lib
