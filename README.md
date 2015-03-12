@@ -1,4 +1,4 @@
-## blockscore-php [![Travis Build Status](https://travis-ci.org/BlockScore/blockscore-php.svg?branch=master)](https://travis-ci.org/BlockScore/blockscore-php)
+## blockscore-php [![Travis Build Status](https://travis-ci.org/BlockScore/blockscore-php.svg?branch=master)](https://travis-ci.org/BlockScore/blockscore-php) [![PHP version](https://badge.fury.io/ph/blockscore%2Fblockscore-php.svg)](https://github.com/BlockScore/blockscore-php/releases)
 
 This is the official PHP client library of the [BlockScore API](https://blockscore.com). You can sign up for an account on [our dashboard](https://manage.blockscore.com/signup).
 
