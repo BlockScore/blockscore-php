@@ -60,7 +60,7 @@ $person = \BlockScore\Person::create(array(
     'address_country_code' => 'US',
 ));
 
-echo $person;
+var_dump($person);
 ```
 
 ### Documentation
