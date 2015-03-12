@@ -4,7 +4,7 @@ This is the official PHP client library of the [BlockScore API](https://blocksco
 
 ### Requirements
 
-PHP 5.4.37 and later.
+PHP 5.3.29 and later.
 
 ### Composer
 
