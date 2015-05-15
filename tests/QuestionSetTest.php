@@ -40,7 +40,7 @@ class QuestionSetTest extends TestCase
     {
         $person = self::createTestPerson();
         $qs = $person->question_sets->create();
-        $retrieved_qs = QuestionSet::retrieve($qs->id);
+        $retrieved_qs = $person->question_sets->retrieve($qs->id);
         foreach ($qs as $key => $value) {
             $this->assertSame($retrieved_qs->$key, $value);
         }
