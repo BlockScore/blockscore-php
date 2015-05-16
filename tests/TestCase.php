@@ -104,9 +104,11 @@ class TestCase extends \PHPUnit_Framework_TestCase
     protected function createTestJohnCandidate()
     {
         self::setTestApiKey();
-        self::$test_candidate['name_first'] = 'John';
-        self::$test_candidate['name_last'] = 'Bredenkamp';
-        return Candidate::create(self::$test_candidate);
+        $test_john = array(
+            'name_first' => 'John',
+            'name_last' => 'Bredenkamp',
+        );
+        return Candidate::create($test_john);
     }
 
     protected static function createTestCompany()

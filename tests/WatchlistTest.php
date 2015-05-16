@@ -29,7 +29,7 @@ class WatchlistTest extends TestCase
         $candidate = self::createTestJohnCandidate();
         $wl = $candidate->watchlists->search();
         $this->assertGreaterThan(0, count($wl->matches));
-        $this->assertSame('john bredenkamp', $wl->matches[0]->name_full);
+        $this->assertSame('John Bredenkamp', $wl->matches[0]->name_full);
         $this->assertSame('name', $wl->matches[0]->matching_info[0]);
     }
 }
