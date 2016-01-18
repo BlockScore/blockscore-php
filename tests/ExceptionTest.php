@@ -7,7 +7,7 @@ class ExceptionTest extends TestCase
     public function testApiErrorHandling()
     {
         self::setTestApiKey();
-    
+
         try {
             Person::create(array(
                 'name_first' => 'Jane',
@@ -20,11 +20,11 @@ class ExceptionTest extends TestCase
             $this->assertTrue($e instanceof Util\Exception);
         }
     }
-    
+
     public function testApiKeyErrorHandling()
     {
         BlockScore::$apiKey = 'sk_test_11111111111111111111111111111111';
-    
+
         try {
             Person::create(array(
                 'name_first' => 'Jane',
@@ -40,7 +40,7 @@ class ExceptionTest extends TestCase
                 'address_postal_code' => '44444',
                 'address_country_code' => 'US',
             ));
-    
+
             // Always fail
             $this->assertTrue(false);
         } catch (Util\Exception $e) {
@@ -48,7 +48,7 @@ class ExceptionTest extends TestCase
             $this->assertSame($expected, $e->type);
             $this->assertTrue($e instanceof Util\Exception);
         }
-    
+
         self::setTestApiKey();
     }
 
@@ -74,7 +74,7 @@ class ExceptionTest extends TestCase
     {
         try {
             $options = "count: 5";
-            $people = Person::all($options);
+            Person::all($options);
         } catch (Util\Exception $e) {
             $expected = 'invalid_options_error';
             $this->assertSame($expected, $e->type);
