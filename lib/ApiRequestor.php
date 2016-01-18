@@ -35,7 +35,7 @@ class ApiRequestor
     {
         $url = "{$this->_apiEndpoint}{$url}";
         if ($options != null && !is_array($options)) {
-            throw new Util\Exception("Invalid format for options. Options must be an array. Attemped options: {$options}.", 'invalid_options_error');
+            throw new Util\Exception("Invalid format for options. Options must be an array. Attempted options: {$options}.", 'invalid_options_error');
         }
         list($response_body, $response_code) =
         $this->_makeCurlRequest($method, $url, $params, $options);
