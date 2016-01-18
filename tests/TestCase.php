@@ -70,7 +70,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
         'phone_number' => '6505555555',
         'ip_address' => '8.8.8.8',
         'address_street1' => '123 Something Ave',
-        'address_street2' => null,
+        'address_street2' => '',
         'address_city' => 'Newton Falls',
         'address_subdivision' => 'OH',
         'address_postal_code' => '44444',
