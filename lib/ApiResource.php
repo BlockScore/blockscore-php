@@ -181,13 +181,13 @@ class ApiResource extends Object
         $url = static::instanceUrl() . '/score';
 
         // Weird request requires us to build the cURL request manually
-        $params = '';
+        $params = array();
         foreach ($answers as $key => $value) {
-            $params = $params . 'answers[][{$key}]={$value}&';
+            $params[] = "answers[][question_id]={$value['question_id']}";
+            $params[] = "answers[][answer_id]={$value['answer_id']}";
         }
-        rtrim($params, '&');
 
-        $response = static::_makeRequest('post', $url, $params);
+        $response = static::_makeRequest('post', $url, implode('&', $params));
         return Util\Util::convertToBlockScoreObject($response);
     }
 }
