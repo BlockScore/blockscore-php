@@ -18,11 +18,13 @@ class QuestionSet extends ApiResource
     }
 
     /**
+     * @param Integer $time_limit seconds before question set expires.
+     *
      * @return QuestionSet The created QuestionSet.
      */
-    public function create()
+    public function create($time_limit = 0)
     {
-        return self::_createQuestionSet();
+        return self::_createQuestionSet($time_limit);
     }
 
     /**

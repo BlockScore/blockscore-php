@@ -159,12 +159,14 @@ class ApiResource extends Object
     }
 
     /**
+     * @param Integer $time_limit seconds before question set expires.
+     *
      * @return QuestionSet The created QuestionSet.
      */
-    protected function _createQuestionSet()
+    protected function _createQuestionSet($time_limit)
     {
         $url = static::classUrl();
-        $params = array('person_id' => $this->id);
+        $params = array('person_id' => $this->id, 'time_limit' => $time_limit);
         $response = static::_makeRequest('post', $url, $params);
         $qs_obj = Util\Util::convertToBlockScoreObject($response);
         $this->addExisting($qs_obj);

@@ -35,6 +35,24 @@ class QuestionSetTest extends TestCase
         }
     }
 
+    public function testCreateQuestionSetWithTimeLimit()
+    {
+        $person = self::createTestPerson();
+        $qs = $person->question_sets->create(17);
+
+        $this->assertSame($qs->time_limit, 17);
+    }
+
+    public function testTimeLimitExpired()
+    {
+        $person = self::createTestPerson();
+        $qs = $person->question_sets->create(2);
+        sleep(4);
+
+        $retrieved_qs = $person->question_sets->retrieve($qs->id);
+        $this->assertSame($retrieved_qs->expired, true);
+    }
+
     public function testAllQuestionSet()
     {
         $person = self::createTestPerson();
