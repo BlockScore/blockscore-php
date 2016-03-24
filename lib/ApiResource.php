@@ -172,6 +172,8 @@ class ApiResource extends Object
     }
 
     /**
+     * @param array $answers The answers to pass.
+     *
      * @return QuestionSet The scored QuestionSet.
      */
     protected function _score($answers)

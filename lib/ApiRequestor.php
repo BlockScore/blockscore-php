@@ -30,12 +30,14 @@ class ApiRequestor
      * @param array|null $options The options to use for the response.
      *
      * @return JSON The response from the BlockScore API.
+     *
+     * @throws Util\Exception
      */
     public function execute($method, $url, $params = null, $options = null)
     {
         $url = "{$this->_apiEndpoint}{$url}";
         if ($options != null && !is_array($options)) {
-            throw new Util\Exception("Invalid format for options. Options must be an array. Attemped options: {$options}.", 'invalid_options_error');
+            throw new Util\Exception("Invalid format for options. Options must be an array. Attempted options: {$options}.", 'invalid_options_error');
         }
         list($response_body, $response_code) =
         $this->_makeCurlRequest($method, $url, $params, $options);
@@ -48,6 +50,8 @@ class ApiRequestor
      * @param string $response_code The code of the response from the BlockScore API.
      *
      * @return JSON The response from the BlockScore API.
+     *
+     * @throws Util\Exception
      */
     private function _interpretResponse($response_body, $response_code)
     {
@@ -73,6 +77,7 @@ class ApiRequestor
      * @param string $response_code The code of the response from the BlockScore API.
      * @param JSON $response The response in a JSON object.
      *
+     * @throws Util\Exception
      */
     public function handleApiError($response_body, $response_code, $response)
     {
@@ -125,6 +130,8 @@ class ApiRequestor
      * @param array|null $options The options to use for the response.
      *
      * @return array The response body and code from the BlockScore API.
+     *
+     * @throws Util\Exception
      */
     private function _makeCurlRequest($method, $url, $params = null, $options = null)
     {
