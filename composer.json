@@ -1,16 +1,16 @@
 {
-    "name": "blockscore/blockscore-php",
-    "description": "An API wrapper for the BlockScore API using PHP.",
-    "require": {
-        "php": ">=5.3.29",
-        "ext-curl": "*",
-        "ext-json": "*"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "~4.0"
-    },
-    "autoload": {
-        "psr-4": { "BlockScore\\" : "lib/" }
-    },
-    "license": "MIT"
+  "name": "blockscore/blockscore-php",
+  "description": "An API wrapper for the BlockScore API using PHP.",
+  "require": {
+    "php": ">=5.3.29",
+    "ext-curl": "*",
+    "ext-json": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.0"
+  },
+  "autoload": {
+    "psr-4": { "BlockScore\\": "lib/" }
+  },
+  "license": "MIT"
 }

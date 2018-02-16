@@ -23,7 +23,7 @@ class QuestionSetTest extends TestCase
         $person = self::createTestPerson();
         $qs = $person->question_sets->create();
         $this->assertTrue($qs instanceof QuestionSet);
-        $this->assertTrue($qs instanceof Object);
+        $this->assertTrue($qs instanceof BaseObject);
     }
 
     public function testCreateQuestionSet()

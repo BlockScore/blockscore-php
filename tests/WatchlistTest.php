@@ -14,7 +14,7 @@ class WatchlistTest extends TestCase
         $candidate = self::createTestCandidate();
         $wl = $candidate->watchlists->search();
         $this->assertTrue($wl instanceof Watchlist);
-        $this->assertTrue($wl instanceof Object);
+        $this->assertTrue($wl instanceof BaseObject);
     }
     
     public function testWatchlistTestSearch()

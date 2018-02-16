@@ -4,7 +4,7 @@
 require(dirname(__FILE__) . '/lib/BlockScore.php');
 
 // Helpers
-require(dirname(__FILE__) . '/lib/Object.php');
+require(dirname(__FILE__) . '/lib/BaseObject.php');
 require(dirname(__FILE__) . '/lib/ApiRequestor.php');
 require(dirname(__FILE__) . '/lib/ApiResource.php');
 require(dirname(__FILE__) . '/lib/Util/Util.php');

@@ -19,7 +19,7 @@ class CompanyTest extends TestCase
     {
         $company = self::createTestCompany();
         $this->assertTrue($company instanceof Company);
-        $this->assertTrue($company instanceof Object);
+        $this->assertTrue($company instanceof BaseObject);
     }
     
     public function testListAllCompanies()

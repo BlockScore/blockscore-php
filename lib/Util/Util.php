@@ -2,7 +2,7 @@
 
 namespace BlockScore\Util;
 
-use BlockScore\Object;
+use BlockScore\BaseObject;
 
 class Util
 {
@@ -16,9 +16,9 @@ class Util
     }
 
     /**
-     * @param Object(JSON) $response
+     * @param BaseObject(JSON) $response
      *
-     * @return Object Returns a "BlockScore Object" type.
+     * @return BaseObject Returns a "BlockScore BaseObject" type.
      */
     public static function convertToBlockScoreObject($response)
     {
@@ -50,12 +50,12 @@ class Util
             if (isset($types[$response->object])) {
                 $class = $types[$response->object];
             } else {
-                $class = 'BlockScore\\Object';
+                $class = 'BlockScore\\BaseObject';
             }
 
             return $class::constructObject($response);
         } else {
-            $class = 'BlockScore\\Object';
+            $class = 'BlockScore\\BaseObject';
             return $class::constructObject($response);
         }
     }

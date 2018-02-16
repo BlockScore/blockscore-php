@@ -6,14 +6,14 @@ use ArrayAccess;
 use InvalidArgumentException;
 
 /**
- *  This Object class exists to make it easier to work with objects.
+ *  This class exists to make it easier to work with objects.
  *  Since we want to interact with objects after retrieving them (edit/delete),
  *    we need to be able to track the original values of the attributes and
  *    also the new values of certain attributes.
  *  Anything extending from this class will also be able to access the original
  *    values by using $var->$value
  */
-class Object implements ArrayAccess
+class BaseObject implements ArrayAccess
 {
 
     // @var array Contains the values of the object.
@@ -107,7 +107,7 @@ class Object implements ArrayAccess
     /**
      * @param array $values The values to construct the object with
      *
-     * @return Object The constructed Object.
+     * @return BaseObject The constructed BaseObject.
      */
     public static function constructObject($values)
     {
