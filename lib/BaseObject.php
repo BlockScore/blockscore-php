@@ -142,6 +142,14 @@ class BaseObject implements ArrayAccess
     }
 
     /**
+     * @return array The _values recursively as an array.
+     */
+    public function toArray()
+    {
+        return json_decode(json_encode($this->_values), true);
+    }
+
+    /**
      * @return array The unsaved values of the object.
      */
     public function getUnsavedValues()
