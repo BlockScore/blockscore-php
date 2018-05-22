@@ -19,7 +19,7 @@ class PersonTest extends TestCase
     {
         $person = self::createTestPerson();
         $this->assertTrue($person instanceof Person);
-        $this->assertTrue($person instanceof Object);
+        $this->assertTrue($person instanceof BaseObject);
     }
     
     public function testListAllPeople()

@@ -20,7 +20,7 @@ class CandidateTest extends TestCase
     {
         $candidate = self::createTestCandidate();
         $this->assertTrue($candidate instanceof Candidate);
-        $this->assertTrue($candidate instanceof Object);
+        $this->assertTrue($candidate instanceof BaseObject);
     }
 
     public function testListAllCandidates()

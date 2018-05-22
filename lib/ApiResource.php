@@ -2,7 +2,7 @@
 
 namespace BlockScore;
 
-class ApiResource extends Object
+class ApiResource extends BaseObject
 {
     // @var array An array mapping the API resources to their class name.
     private static $resources = array(
@@ -34,7 +34,7 @@ class ApiResource extends Object
     }
 
     /**
-     * @return Object Returns the "refreshed" Object from the BlockScore API.
+     * @return BaseObject Returns the "refreshed" BaseObject from the BlockScore API.
      */
     public function refresh()
     {
@@ -64,7 +64,7 @@ class ApiResource extends Object
     /**
      * @param string $id The ID of the object to retrieve.
      *
-     * @return Object The retrieved instance.
+     * @return BaseObject The retrieved instance.
      */
     protected static function _retrieve($id)
     {
@@ -76,7 +76,7 @@ class ApiResource extends Object
     /**
      * @param array|null $options The options to use for the response.
      *
-     * @return array An array of Objects.
+     * @return array An array of BaseObjects.
      */
     protected static function _all($options = null)
     {
@@ -88,7 +88,7 @@ class ApiResource extends Object
     /**
      * @param array $params The parameters to use.
      *
-     * @return Object The created BlockScore Object.
+     * @return BaseObject The created BlockScore BaseObject.
      */
     protected static function _create($params)
     {
@@ -98,7 +98,7 @@ class ApiResource extends Object
     }
 
     /**
-     * @return Object The refreshed (and now deleted) instance.
+     * @return BaseObject The refreshed (and now deleted) instance.
      */
     protected function _delete()
     {
@@ -109,7 +109,7 @@ class ApiResource extends Object
     }
 
     /**
-     * @return Object The refreshed instance after saving unsaved attributes.
+     * @return BaseObject The refreshed instance after saving unsaved attributes.
      */
     protected function _save()
     {
